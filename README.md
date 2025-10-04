@@ -1,2 +1,2 @@
-# Organizatec-People-Management
+# Voyager-People-Management
 This is a Spring MVC Project
