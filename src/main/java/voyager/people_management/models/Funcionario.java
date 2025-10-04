@@ -7,9 +7,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "funcionarios")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Funcionario extends AbstractEntity {
 
     @Column(nullable = false, unique = true, length = 60)
@@ -20,9 +26,6 @@ public class Funcionario extends AbstractEntity {
 
     @Column(nullable = false)
     private LocalDate dataDeNascimento;
-
-    // @Column(nullable = false) // Talvez nao precise
-    // private Double salarioBase; // Porque ja tem salario base na tabela 'cargos'
 
     @Column(nullable = false)
     private LocalDate dataDeContratacao;

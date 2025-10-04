@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header.html :: head">
+  <title>Novo Funcionário</title>
+</head>
+<body>
+<div th:replace="fragments/header.html :: (body)"></div>
+<div class="container">
+  <h2>Novo Funcionário</h2>
+  <form th:action="@{/funcionarios/save}" th:object="${funcionario}" method="post">
+    <div class="mb-3">
+      <label class="form-label">Nome</label>
+      <input type="text" th:field="*{nome}" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">CPF</label>
+      <input type="text" th:field="*{cpf}" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Data de Nascimento</label>
+      <input type="date" th:field="*{dataDeNascimento}" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Data de Contratação</label>
+      <input type="date" th:field="*{dataDeContratacao}" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Cargo</label>
+      <select name="cargoId" class="form-select">
+        <option th:each="c : ${cargos}" th:value="${c.id}" th:text="${c.nome}"></option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Departamento</label>
+      <select name="departamentoId" class="form-select">
+        <option th:each="d : ${departamentos}" th:value="${d.id}" th:text="${d.nome}"></option>
+      </select>
+    </div>
+    <button class="btn btn-primary">Salvar</button>
+    <a class="btn btn-link" href="/funcionarios">Cancelar</a>
+  </form>
+</div>
+<div th:replace="fragments/footer.html :: footer"></div>
+</body>
+</html>

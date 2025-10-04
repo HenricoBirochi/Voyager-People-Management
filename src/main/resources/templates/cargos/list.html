@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header.html :: head">
+  <title>Cargos</title>
+</head>
+<body>
+<div th:replace="fragments/header.html :: (body)"></div>
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Cargos</h2>
+    <a class="btn btn-primary" href="/cargos/new">Novo Cargo</a>
+  </div>
+  <table class="table table-striped">
+    <thead><tr><th>ID</th><th>Nome</th><th>Salário</th><th></th></tr></thead>
+    <tbody>
+      <tr th:each="c : ${cargos}">
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.nome}"></td>
+        <td th:text="${c.salario}"></td>
+        <td><a th:href="@{'/cargos/delete/' + ${c.id}}" class="btn btn-sm btn-outline-danger">Excluir</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div th:replace="fragments/footer.html :: footer"></div>
+</body>
+</html>

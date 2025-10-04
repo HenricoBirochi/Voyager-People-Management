@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>People Management - Módulo 1</title>
+	<style>
+		body { font-family: Arial, sans-serif; margin: 24px; }
+		form { margin-bottom: 16px; }
+		fieldset { margin-bottom: 12px; }
+		table { border-collapse: collapse; width: 100%; margin-top: 8px; }
+		th, td { border: 1px solid #ddd; padding: 8px; }
+	</style>
+</head>
+<body>
+	<h1>People Management - Módulo 1</h1>
+
+	<h2>Adicionar Cargo</h2>
+	<form th:action="@{/cargo}" method="post" th:object="${cargo}">
+		<label>Nome: <input type="text" th:field="*{nome}" required/></label>
+		<label>Salário: <input type="number" step="0.01" th:field="*{salario}" required/></label>
+		<button type="submit">Adicionar</button>
+	</form>
+
+	<h2>Adicionar Departamento</h2>
+	<form th:action="@{/departamento}" method="post" th:object="${departamento}">
+		<label>Nome: <input type="text" th:field="*{nome}" required/></label>
+		<button type="submit">Adicionar</button>
+	</form>
+
+	<h2>Adicionar Funcionário</h2>
+	<form th:action="@{/funcionario}" method="post" th:object="${funcionario}">
+		<label>Nome: <input type="text" th:field="*{nome}" required/></label>
+		<label>CPF: <input type="text" th:field="*{cpf}" required/></label>
+		<label>Data de Nascimento: <input type="date" th:field="*{dataDeNascimento}" required/></label>
+		<label>Data de Contratação: <input type="date" th:field="*{dataDeContratacao}" required/></label>
+		<label>Cargo:
+			<select name="cargoId">
+				<option th:each="c : ${cargos}" th:value="${c.id}" th:text="${c.nome}"></option>
+			</select>
+		</label>
+		<label>Departamento:
+			<select name="departamentoId">
+				<option th:each="d : ${departamentos}" th:value="${d.id}" th:text="${d.nome}"></option>
+			</select>
+		</label>
+		<button type="submit">Adicionar</button>
+	</form>
+
+	<h2>Listas</h2>
+	<h3>Cargos</h3>
+	<table>
+		<thead><tr><th>ID</th><th>Nome</th><th>Salário</th></tr></thead>
+		<tbody>
+			<tr th:each="c : ${cargos}">
+				<td th:text="${c.id}"></td>
+				<td th:text="${c.nome}"></td>
+				<!DOCTYPE html>
+				<html xmlns:th="http://www.thymeleaf.org">
+				<head th:replace="fragments/header.html :: head">
+						<title>People Management — Home</title>
+						<style> .card-summary {min-height:120px;} </style>
+				</head>
+				<body>
+				<div th:replace="fragments/header.html :: (body)"></div>
+
+				<div class="container">
+					<div class="row mb-4">
+						<div class="col-12">
+							<div class="jumbotron p-4 bg-light rounded-3">
+								<h1 class="display-6">People Management</h1>
+								<p class="lead">Gerencie cargos, departamentos e funcionários. Use o menu para navegar entre as funcionalidades.</p>
+								<hr class="my-3">
+								<p>
+									<a class="btn btn-primary btn-lg" href="/cargos" role="button">Cargos</a>
+									<a class="btn btn-secondary btn-lg" href="/departamentos" role="button">Departamentos</a>
+									<a class="btn btn-success btn-lg" href="/funcionarios" role="button">Funcionários</a>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4">
+							<div class="card card-summary text-center">
+								<div class="card-body">
+									<h5 class="card-title">Cargos</h5>
+									<p class="card-text">Gerencie funções e salários.</p>
+									<a href="/cargos" class="btn btn-outline-primary">Ver Cargos</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card card-summary text-center">
+								<div class="card-body">
+									<h5 class="card-title">Departamentos</h5>
+									<p class="card-text">Gerencie setores da empresa.</p>
+									<a href="/departamentos" class="btn btn-outline-secondary">Ver Departamentos</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card card-summary text-center">
+								<div class="card-body">
+									<h5 class="card-title">Funcionários</h5>
+									<p class="card-text">Cadastre e acompanhe colaboradores.</p>
+									<a href="/funcionarios" class="btn btn-outline-success">Ver Funcionários</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div th:replace="fragments/footer.html :: footer"></div>
