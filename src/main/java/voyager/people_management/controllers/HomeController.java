@@ -33,6 +33,6 @@ public class HomeController {
         model.addAttribute("departamentosCount", departamentosCount);
         model.addAttribute("funcionariosCount", funcionariosCount);
 
-        return "index";
+        return "/index";
     }
 }

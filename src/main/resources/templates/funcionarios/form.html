@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header.html :: head">
+<head>
   <title>Voyager — Novo Funcionário</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
 </head>
 <body>
 <div th:replace="fragments/header.html :: navbar"></div>
@@ -37,7 +40,7 @@
       </select>
     </div>
   <button class="btn btn-primary">Salvar</button>
-  <a class="btn" href="/funcionarios" th:href="@{/funcionarios}">Cancelar</a>
+  <a class="btn" th:href="@{/funcionarios}">Cancelar</a>
   </form>
   </div>
   <div th:replace="fragments/footer.html :: footer"></div>

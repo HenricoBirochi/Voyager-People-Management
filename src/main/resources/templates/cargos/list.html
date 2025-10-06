@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header.html :: head">
+<head>
   <title>Voyager — Cargos</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
 </head>
 <body>
 <div th:replace="fragments/header.html :: navbar"></div>
 <div class="container">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
   <h2>Cargos</h2>
-  <a class="btn btn-primary" href="/cargos/new" th:href="@{/cargos/new}">Novo Cargo</a>
+  <a class="btn btn-primary" th:href="@{/cargos/new}">Novo Cargo</a>
   </div>
   <table class="table">
     <thead><tr><th>ID</th><th>Nome</th><th>Salário</th><th></th></tr></thead>
@@ -17,7 +20,7 @@
         <td th:text="${c.id}"></td>
         <td th:text="${c.nome}"></td>
         <td th:text="${c.salario}"></td>
-  <td><a href="/cargos/delete/${c.id}" th:href="@{/cargos/delete/{id}(id=${c.id})}" class="btn">Excluir</a></td>
+  <td><a th:href="@{/cargos/delete/{id}(id=${c.id})}" class="btn">Excluir</a></td>
       </tr>
     </tbody>
   </table>

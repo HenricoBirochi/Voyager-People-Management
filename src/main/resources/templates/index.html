@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header.html :: head">
-		<title>Voyager — Home</title>
-		<style> .card-summary {min-height:120px;} </style>
+<head>
+	<title>Voyager — Home</title>
+	<style> .card-summary {min-height:120px;} </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
 </head>
 <body>
 <div th:replace="fragments/header.html :: navbar"></div>
@@ -14,9 +17,9 @@
 					<h1 class="display-6">Voyager</h1>
 					<p class="small">Veja as listagem de cargos, departamentos e funcionários da empresa</p>
 					<p>
-						  <a class="btn btn-primary" href="./cargos/list.html" th:href="@{/cargos}">Cargos</a>
-						  <a class="btn btn-secondary" href="./departamentos/list.html" th:href="@{/departamentos}">Departamentos</a>
-						  <a class="btn btn-outline-primary" href="./funcionarios/list.html" th:href="@{/funcionarios}">Funcionários</a>
+						<a class="btn btn-primary" th:href="@{/cargos}">Cargos</a>
+						<a class="btn btn-secondary" th:href="@{/departamentos}">Departamentos</a>
+						<a class="btn btn-outline-primary" th:href="@{/funcionarios}">Funcionários</a>
 					</p>
 				</div>
 			</div>
@@ -29,7 +32,7 @@
 					<h5 class="card-title">Cargos</h5>
 					<p class="card-text">Crie funções com respectivos salários.</p>
 					<p class="h3" th:text="${cargosCount}"></p>
-					  <a href="./cargos/form.html" th:href="@{/cargos}" class="btn btn-outline-primary">Gerenciar</a>
+					  <a th:href="@{/cargos}" class="btn btn-outline-primary">Gerenciar</a>
 				</div>
 			</div>
 		</div>
@@ -39,7 +42,7 @@
 					<h5 class="card-title">Departamentos</h5>
 					<p class="card-text">Gerencie setores da empresa.</p>
 					<p class="h3" th:text="${departamentosCount}"></p>
-					  <a href="./departamentos/form.html" th:href="@{/departamentos}" class="btn btn-outline-secondary">Gerenciar</a>
+					  <a th:href="@{/departamentos}" class="btn btn-outline-secondary">Gerenciar</a>
 				</div>
 			</div>
 		</div>
@@ -49,7 +52,7 @@
 					<h5 class="card-title">Funcionários</h5>
 					<p class="card-text">Cadastre e acompanhe colaboradores.</p>
 					<p class="h3" th:text="${funcionariosCount}"></p>
-					  <a href="./funcionarios/form.html" th:href="@{/funcionarios}" class="btn btn-outline-success">Gerenciar</a>
+					  <a th:href="@{/funcionarios}" class="btn btn-outline-success">Gerenciar</a>
 				</div>
 			</div>
 		</div>

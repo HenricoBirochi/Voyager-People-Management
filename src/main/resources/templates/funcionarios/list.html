@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header.html :: head">
+<head>
   <title>Voyager — Funcionários</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
 </head>
 <body>
 <div th:replace="fragments/header.html :: navbar"></div>
 <div class="container">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
   <h2>Funcionários</h2>
-  <a class="btn btn-primary" href="/funcionarios/new" th:href="@{/funcionarios/new}">Novo Funcionário</a>
+  <a class="btn btn-primary" th:href="@{/funcionarios/new}">Novo Funcionário</a>
   </div>
   <table class="table">
     <thead><tr><th>ID</th><th>Nome</th><th>CPF</th><th>Cargo</th><th>Departamento</th><th></th></tr></thead>
@@ -19,7 +22,7 @@
         <td th:text="${f.cpf}"></td>
         <td th:text="${f.cargo != null ? f.cargo.nome : ''}"></td>
         <td th:text="${f.departamento != null ? f.departamento.nome : ''}"></td>
-  <td><a href="/funcionarios/delete/${f.id}" th:href="@{/funcionarios/delete/{id}(id=${f.id})}" class="btn">Excluir</a></td>
+  <td><a th:href="@{/funcionarios/delete/{id}(id=${f.id})}" class="btn">Excluir</a></td>
       </tr>
     </tbody>
   </table>

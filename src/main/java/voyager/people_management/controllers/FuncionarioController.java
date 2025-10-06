@@ -30,7 +30,7 @@ public class FuncionarioController {
 	@GetMapping("/funcionarios")
 	public String list(Model model) {
 		model.addAttribute("funcionarios", funcRepo.findAll());
-		return "funcionarios/list";
+		return "/funcionarios/list";
 	}
 
 	@GetMapping("/funcionarios/new")
@@ -38,7 +38,7 @@ public class FuncionarioController {
 		model.addAttribute("funcionario", new Funcionario());
 		model.addAttribute("cargos", cargoRepo.findAll());
 		model.addAttribute("departamentos", deptRepo.findAll());
-		return "funcionarios/form";
+		return "/funcionarios/form";
 	}
 
 	@PostMapping("/funcionarios/save")

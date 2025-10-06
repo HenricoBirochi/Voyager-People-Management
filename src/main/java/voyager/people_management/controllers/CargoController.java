@@ -24,13 +24,13 @@ public class CargoController {
 	@GetMapping("/cargos")
 	public String list(Model model) {
 		model.addAttribute("cargos", cargoRepo.findAll());
-		return "cargos/list";
+		return "/cargos/list";
 	}
 
 	@GetMapping("/cargos/new")
 	public String form(Model model) {
 		model.addAttribute("cargo", new Cargo());
-		return "cargos/form";
+		return "/cargos/form";
 	}
 
 	@PostMapping("/cargos/save")

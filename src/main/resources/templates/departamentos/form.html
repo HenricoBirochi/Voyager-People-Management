@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header.html :: head">
+<head>
   <title>Voyager — Novo Departamento</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
 </head>
 <body>
 <div th:replace="fragments/header.html :: navbar"></div>
@@ -13,7 +16,7 @@
       <input type="text" th:field="*{nome}" class="form-input" required />
     </div>
   <button class="btn btn-primary">Salvar</button>
-  <a class="btn" href="/departamentos" th:href="@{/departamentos}">Cancelar</a>
+  <a class="btn" th:href="@{/departamentos}">Cancelar</a>
   </form>
   </div>
   <div th:replace="fragments/footer.html :: footer"></div>

@@ -24,13 +24,13 @@ public class DepartamentoController {
 	@GetMapping("/departamentos")
 	public String list(Model model) {
 		model.addAttribute("departamentos", deptRepo.findAll());
-		return "departamentos/list";
+		return "/departamentos/list";
 	}
 
 	@GetMapping("/departamentos/new")
 	public String form(Model model) {
 		model.addAttribute("departamento", new Departamento());
-		return "departamentos/form";
+		return "/departamentos/form";
 	}
 
 	@PostMapping("/departamentos/save")
