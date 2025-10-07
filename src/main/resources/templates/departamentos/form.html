@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Voyager — Novo Departamento</title>
+  <title>Voyager — Departamento</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
@@ -10,14 +10,20 @@
 <div th:replace="~{fragments/header.html :: navbar}"></div>
 <div class="centered-content-page">
   <div class="main-box-page">
-    <h2>Novo Departamento</h2>
+    <h2 th:text="${departamento.id != null} ? 'Editar Departamento' : 'Novo Departamento'"></h2>
     <form th:action="@{/departamentos/save}" th:object="${departamento}" method="post">
+      <input type="hidden" th:if="${departamento.id != null}" th:field="*{id}" />
       <div style="margin-bottom:1rem">
         <label>Nome</label>
-        <input type="text" th:field="*{nome}" class="form-input" required />
+  <input type="text" th:field="*{nome}" class="form-input" required maxlength="50" />
       </div>
-      <button class="btn btn-primary">Salvar</button>
-      <a class="btn" th:href="@{/departamentos}">Cancelar</a>
+  <button class="btn btn-primary">Salvar</button>
+  <a class="btn" th:href="@{/departamentos}">Cancelar</a>
+      <div th:if="${#fields.hasErrors()}" class="form-errors">
+        <ul>
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+        </ul>
+      </div>
     </form>
   </div>
 </div>

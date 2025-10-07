@@ -10,12 +10,13 @@
 <div th:replace="~{fragments/header.html :: navbar}"></div>
 <div class="centered-content-page">
   <div class="main-box-page">
-    <h2>Novo Funcionário</h2>
+    <h2 th:text="${funcionario.id != null} ? 'Editar Funcionário' : 'Novo Funcionário'"></h2>
     <form th:action="@{/funcionarios/save}" th:object="${funcionario}" method="post">
+      <input type="hidden" th:if="${funcionario.id != null}" th:field="*{id}" />
       <div th:if="${errorMessage}" class="form-error" style="color:#b00;margin-bottom:1rem;">[[${errorMessage}]]</div>
       <div style="margin-bottom:1rem">
         <label>Nome</label>
-        <input type="text" th:field="*{nome}" class="form-input" required />
+        <input type="text" th:field="*{nome}" class="form-input" required maxlength="60" />
       </div>
       <div style="margin-bottom:1rem">
         <label>CPF</label>
@@ -40,18 +41,29 @@ function mascaraCPF(input) {
       </div>
       <div style="margin-bottom:1rem">
         <label>Cargo</label>
-        <select name="cargoId" class="form-input">
-          <option th:each="c : ${cargos}" th:value="${c.id}" th:text="${c.nome}"></option>
+        <select name="cargoId" class="form-input" required>
+          <option th:each="c : ${cargos}" th:value="${c.id}" th:text="${c.nome}" th:selected="${funcionario.cargo != null and funcionario.cargo.id == c.id}"></option>
         </select>
       </div>
       <div style="margin-bottom:1rem">
         <label>Departamento</label>
-        <select name="departamentoId" class="form-input">
-          <option th:each="d : ${departamentos}" th:value="${d.id}" th:text="${d.nome}"></option>
+        <select name="departamentoId" class="form-input" required>
+          <option th:each="d : ${departamentos}" th:value="${d.id}" th:text="${d.nome}" th:selected="${funcionario.departamento != null and funcionario.departamento.id == d.id}"></option>
+        </select>
+      </div>
+      <div style="margin-bottom:1rem">
+        <label>Projetos</label>
+        <select th:field="*{projetos}" class="form-input" multiple size="5">
+          <option th:each="p : ${projetos}" th:value="${p.id}" th:text="${p.nome}" th:selected="${#lists.contains(funcionario.projetos, p)}"></option>
         </select>
       </div>
       <button class="btn btn-primary">Salvar</button>
       <a class="btn" th:href="@{/funcionarios}">Cancelar</a>
+      <div th:if="${#fields.hasErrors()}" class="form-errors">
+        <ul>
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+        </ul>
+      </div>
     </form>
   </div>
 </div>

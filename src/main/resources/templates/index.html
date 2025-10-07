@@ -20,10 +20,11 @@
 				<a class="btn btn-primary" th:href="@{/cargos}">Cargos</a>
 				<a class="btn btn-primary" th:href="@{/departamentos}">Departamentos</a>
 				<a class="btn btn-primary" th:href="@{/funcionarios}">Funcionários</a>
+				<a class="btn btn-primary" th:href="@{/projetos}">Projetos</a>
 			</p>
 		</div>
 		<div class="row row-cards">
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="card card-summary text-center">
 					<div class="card-body">
 						<h5 class="card-title">Cargos</h5>
@@ -33,7 +34,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="card card-summary text-center">
 					<div class="card-body">
 						<h5 class="card-title">Departamentos</h5>
@@ -43,13 +44,23 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="card card-summary text-center">
 					<div class="card-body">
 						<h5 class="card-title">Funcionários</h5>
 						<p class="card-text">Cadastre e acompanhe colaboradores.</p>
 						<p class="h3" th:text="${funcionariosCount}"></p>
 						<a th:href="@{/funcionarios}" class="btn btn-primary">Gerenciar</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card card-summary text-center">
+					<div class="card-body">
+						<h5 class="card-title">Projetos</h5>
+						<p class="card-text">Gerencie projetos e equipes.</p>
+						<!-- Se quiser exibir a contagem, adicione um atributo projetosCount no controller -->
+						<a th:href="@{/projetos}" class="btn btn-primary">Gerenciar</a>
 					</div>
 				</div>
 			</div>

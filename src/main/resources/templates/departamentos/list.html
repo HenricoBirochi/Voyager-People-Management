@@ -26,6 +26,7 @@
           <tr th:each="d : ${departamentos}">
             <td th:text="${d.nome}"></td>
             <td style="text-align:center;vertical-align:middle;">
+              <a class="btn btn-secondary" th:href="@{'/departamentos/edit/' + ${d.id}}">Editar</a>
               <a class="btn btn-danger" th:href="@{'/departamentos/delete/' + ${d.id}}" onclick="return confirm('Tem certeza que deseja excluir este registro?')">Excluir</a>
             </td>
           </tr>

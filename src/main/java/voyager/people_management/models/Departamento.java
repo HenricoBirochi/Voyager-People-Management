@@ -22,4 +22,7 @@ public class Departamento extends AbstractEntity {
 
     @OneToMany(mappedBy = "departamento", cascade = jakarta.persistence.CascadeType.REMOVE)
     private List<Funcionario> funcionarios;
+
+    @OneToMany(mappedBy = "departamento")
+    private List<Projeto> projetos;
 }

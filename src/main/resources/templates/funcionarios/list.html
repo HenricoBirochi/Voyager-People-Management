@@ -24,6 +24,7 @@
             <th style="text-align:left;">Data de Contratação</th>
             <th style="text-align:left;">Cargo</th>
             <th style="text-align:left;">Departamento</th>
+            <th style="text-align:left;">Projetos</th>
             <th style="width:120px;text-align:center;">Ações</th>
           </tr>
         </thead>
@@ -35,7 +36,11 @@
             <td th:text="${#temporals.format(f.dataDeContratacao, 'dd/MM/yyyy')}"></td>
             <td th:text="${f.cargo != null ? f.cargo.nome : ''}"></td>
             <td th:text="${f.departamento != null ? f.departamento.nome : ''}"></td>
+            <td>
+              <span th:if="${f.projetos != null}" th:each="p, iter : ${f.projetos}" th:text="${p.nome + (iter.last ? '' : ', ')}"></span>
+            </td>
             <td style="text-align:center;vertical-align:middle;">
+              <a class="btn btn-secondary" th:href="@{'/funcionarios/edit/' + ${f.id}}">Editar</a>
               <a class="btn btn-danger" th:href="@{'/funcionarios/delete/' + ${f.id}}" onclick="return confirm('Tem certeza que deseja excluir este registro?')">Excluir</a>
             </td>
           </tr>
