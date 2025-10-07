@@ -10,54 +10,51 @@
 <body>
 <div th:replace="fragments/header.html :: navbar"></div>
 
-<div class="container">
-		<div class="row mb-4">
-			<div class="col-12">
-				<div class="jumbotron">
-					<h1 class="display-6">Voyager</h1>
-					<p class="small">Veja as listagem de cargos, departamentos e funcionários da empresa</p>
-					<p>
-						<a class="btn btn-primary" th:href="@{/cargos}">Cargos</a>
-						<a class="btn btn-secondary" th:href="@{/departamentos}">Departamentos</a>
-						<a class="btn btn-outline-primary" th:href="@{/funcionarios}">Funcionários</a>
-					</p>
-				</div>
-			</div>
-		</div>
 
-	<div class="row">
-		<div class="col-md-4">
-			<div class="card card-summary text-center">
-				<div class="card-body">
-					<h5 class="card-title">Cargos</h5>
-					<p class="card-text">Crie funções com respectivos salários.</p>
-					<p class="h3" th:text="${cargosCount}"></p>
-					  <a th:href="@{/cargos}" class="btn btn-outline-primary">Gerenciar</a>
+<div class="centered-content">
+	<div class="main-box">
+		<div class="jumbotron">
+			<h1 class="display-6">Voyager</h1>
+			<p class="small">Veja as listagem de cargos, departamentos e funcionários da empresa</p>
+			<p class="btn-group-home">
+				<a class="btn btn-primary" th:href="@{/cargos}">Cargos</a>
+				<a class="btn btn-secondary" th:href="@{/departamentos}">Departamentos</a>
+				<a class="btn btn-outline-primary" th:href="@{/funcionarios}">Funcionários</a>
+			</p>
+		</div>
+		<div class="row row-cards">
+			<div class="col-md-4">
+				<div class="card card-summary text-center">
+					<div class="card-body">
+						<h5 class="card-title">Cargos</h5>
+						<p class="card-text">Crie funções com respectivos salários.</p>
+						<p class="h3" th:text="${cargosCount}"></p>
+						<a th:href="@{/cargos}" class="btn btn-outline-primary">Gerenciar</a>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="card card-summary text-center">
-				<div class="card-body">
-					<h5 class="card-title">Departamentos</h5>
-					<p class="card-text">Gerencie setores da empresa.</p>
-					<p class="h3" th:text="${departamentosCount}"></p>
-					  <a th:href="@{/departamentos}" class="btn btn-outline-secondary">Gerenciar</a>
+			<div class="col-md-4">
+				<div class="card card-summary text-center">
+					<div class="card-body">
+						<h5 class="card-title">Departamentos</h5>
+						<p class="card-text">Gerencie setores da empresa.</p>
+						<p class="h3" th:text="${departamentosCount}"></p>
+						<a th:href="@{/departamentos}" class="btn btn-outline-secondary">Gerenciar</a>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="card card-summary text-center">
-				<div class="card-body">
-					<h5 class="card-title">Funcionários</h5>
-					<p class="card-text">Cadastre e acompanhe colaboradores.</p>
-					<p class="h3" th:text="${funcionariosCount}"></p>
-					  <a th:href="@{/funcionarios}" class="btn btn-outline-success">Gerenciar</a>
+			<div class="col-md-4">
+				<div class="card card-summary text-center">
+					<div class="card-body">
+						<h5 class="card-title">Funcionários</h5>
+						<p class="card-text">Cadastre e acompanhe colaboradores.</p>
+						<p class="h3" th:text="${funcionariosCount}"></p>
+						<a th:href="@{/funcionarios}" class="btn btn-outline-success">Gerenciar</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
 
 <div th:replace="fragments/footer.html :: footer"></div>

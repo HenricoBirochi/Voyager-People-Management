@@ -8,17 +8,19 @@
 </head>
 <body>
 <div th:replace="fragments/header.html :: navbar"></div>
-<div class="container">
-  <h2>Novo Departamento</h2>
-  <form th:action="@{/departamentos/save}" th:object="${departamento}" method="post">
-    <div style="margin-bottom:1rem">
-      <label>Nome</label>
-      <input type="text" th:field="*{nome}" class="form-input" required />
-    </div>
-  <button class="btn btn-primary">Salvar</button>
-  <a class="btn" th:href="@{/departamentos}">Cancelar</a>
-  </form>
+<div class="centered-content-page">
+  <div class="main-box-page">
+    <h2>Novo Departamento</h2>
+    <form th:action="@{/departamentos/save}" th:object="${departamento}" method="post">
+      <div style="margin-bottom:1rem">
+        <label>Nome</label>
+        <input type="text" th:field="*{nome}" class="form-input" required />
+      </div>
+      <button class="btn btn-primary">Salvar</button>
+      <a class="btn" th:href="@{/departamentos}">Cancelar</a>
+    </form>
   </div>
+</div>
   <div th:replace="fragments/footer.html :: footer"></div>
 </body>
 </html>

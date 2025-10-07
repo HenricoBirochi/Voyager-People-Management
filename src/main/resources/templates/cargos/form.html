@@ -8,21 +8,23 @@
 </head>
 <body>
 <div th:replace="fragments/header.html :: navbar"></div>
-<div class="container">
-  <h2>Novo Cargo</h2>
-  <form th:action="@{/cargos/save}" th:object="${cargo}" method="post">
-    <div style="margin-bottom:1rem">
-      <label>Nome</label>
-      <input type="text" th:field="*{nome}" class="form-input" required />
-    </div>
-    <div style="margin-bottom:1rem">
-      <label>Salário</label>
-      <input type="number" step="0.01" th:field="*{salario}" class="form-input" required />
-    </div>
-  <button class="btn btn-primary">Salvar</button>
-  <a class="btn" th:href="@{/cargos}">Cancelar</a>
-  </form>
+<div class="centered-content-page">
+  <div class="main-box-page">
+    <h2>Novo Cargo</h2>
+    <form th:action="@{/cargos/save}" th:object="${cargo}" method="post">
+      <div style="margin-bottom:1rem">
+        <label>Nome</label>
+        <input type="text" th:field="*{nome}" class="form-input" required />
+      </div>
+      <div style="margin-bottom:1rem">
+        <label>Salário</label>
+        <input type="number" step="0.01" th:field="*{salario}" class="form-input" required />
+      </div>
+      <button class="btn btn-primary">Salvar</button>
+      <a class="btn" th:href="@{/cargos}">Cancelar</a>
+    </form>
   </div>
+</div>
   <div th:replace="fragments/footer.html :: footer"></div>
 </body>
 </html>

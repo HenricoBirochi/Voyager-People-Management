@@ -8,22 +8,34 @@
 </head>
 <body>
 <div th:replace="fragments/header.html :: navbar"></div>
-<div class="container">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-  <h2>Departamentos</h2>
-  <a class="btn btn-primary" th:href="@{/departamentos/new}">Novo Departamento</a>
+<div class="centered-content-page">
+  <div class="main-box-page">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <h2>Departamentos</h2>
+      <a class="btn btn-primary" th:href="@{/departamentos/new}">Novo Departamento</a>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="table" style="min-width:400px;width:100%;margin:0 auto;">
+        <thead>
+          <tr>
+            <th style="text-align:left;">Nome</th>
+            <th style="width:120px;text-align:center;">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="d : ${departamentos}">
+            <td th:text="${d.nome}"></td>
+            <td style="text-align:center;vertical-align:middle;">
+              <a class="btn btn-danger" th:href="@{'/departamentos/delete/' + ${d.id}}" onclick="return confirm('Tem certeza que deseja excluir este registro?')">Excluir</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- botão de exclusão simples, sem modal -->
   </div>
-  <table class="table">
-    <thead><tr><th>ID</th><th>Nome</th><th></th></tr></thead>
-    <tbody>
-      <tr th:each="d : ${departamentos}">
-        <td th:text="${d.id}"></td>
-        <td th:text="${d.nome}"></td>
-  <td><a th:href="@{/departamentos/delete/{id}(id=${d.id})}" class="btn">Excluir</a></td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-  <div th:replace="fragments/footer.html :: footer"></div>
+</div>
+<div th:replace="fragments/footer.html :: footer"></div>
 </body>
+<!-- sem script de modal -->
 </html>

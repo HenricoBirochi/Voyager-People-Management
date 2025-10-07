@@ -5,12 +5,10 @@
     <title th:insert="~{::title}">Voyager</title>
 </head>
 <nav th:fragment="navbar" class="navbar">
-  <div class="container">
-  <a class="brand" href="/" th:href="@{/}">Voyager</a>
-    <div class="nav">
-      <a href="/cargos" th:href="@{/cargos}">Cargos</a>
-      <a href="/departamentos" th:href="@{/departamentos}">Departamentos</a>
-      <a href="/funcionarios" th:href="@{/funcionarios}">Funcionários</a>
-    </div>
+  <div class="nav nav-full">
+    <a class="brand" href="/" th:href="@{/}">Voyager</a>
+    <a href="/cargos" th:href="@{/cargos}">Cargos</a>
+    <a href="/departamentos" th:href="@{/departamentos}">Departamentos</a>
+    <a href="/funcionarios" th:href="@{/funcionarios}">Funcionários</a>
   </div>
 </nav>

@@ -20,6 +20,6 @@ public class Departamento extends AbstractEntity {
     @Column(nullable = false, unique = true)
     private String nome;
 
-    @OneToMany(mappedBy = "departamento")
+    @OneToMany(mappedBy = "departamento", cascade = jakarta.persistence.CascadeType.REMOVE)
     private List<Funcionario> funcionarios;
 }

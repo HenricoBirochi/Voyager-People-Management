@@ -30,7 +30,7 @@ public class FuncionarioController {
 	@GetMapping("/funcionarios")
 	public String list(Model model) {
 		model.addAttribute("funcionarios", funcRepo.findAll());
-		return "/funcionarios/list";
+		return "funcionarios/list";
 	}
 
 	@GetMapping("/funcionarios/new")
@@ -38,14 +38,40 @@ public class FuncionarioController {
 		model.addAttribute("funcionario", new Funcionario());
 		model.addAttribute("cargos", cargoRepo.findAll());
 		model.addAttribute("departamentos", deptRepo.findAll());
-		return "/funcionarios/form";
+		return "funcionarios/form";
 	}
 
 	@PostMapping("/funcionarios/save")
-	public String save(@Valid @ModelAttribute Funcionario funcionario, BindingResult br, Integer cargoId, Integer departamentoId) {
-		if (br.hasErrors()) return "funcionarios/form";
+	public String save(@Valid @ModelAttribute Funcionario funcionario, BindingResult br, Integer cargoId, Integer departamentoId, Model model) {
 		if (cargoId != null) cargoRepo.findById(cargoId).ifPresent(funcionario::setCargo);
 		if (departamentoId != null) deptRepo.findById(departamentoId).ifPresent(funcionario::setDepartamento);
+
+		// Validações customizadas
+		if (funcionario.getDataDeNascimento() != null && funcionario.getDataDeContratacao() != null) {
+			if (!funcionario.getDataDeNascimento().isBefore(funcionario.getDataDeContratacao())) {
+				model.addAttribute("errorMessage", "A data de nascimento deve ser anterior à data de contratação.");
+				model.addAttribute("cargos", cargoRepo.findAll());
+				model.addAttribute("departamentos", deptRepo.findAll());
+				return "funcionarios/form";
+			}
+			if (funcionario.getDataDeNascimento().isAfter(java.time.LocalDate.now().minusYears(16))) {
+				model.addAttribute("errorMessage", "O funcionário deve ter pelo menos 16 anos de idade.");
+				model.addAttribute("cargos", cargoRepo.findAll());
+				model.addAttribute("departamentos", deptRepo.findAll());
+				return "funcionarios/form";
+			}
+			if (funcionario.getDataDeContratacao().isAfter(java.time.LocalDate.now())) {
+				model.addAttribute("errorMessage", "A data de contratação não pode ser maior que hoje.");
+				model.addAttribute("cargos", cargoRepo.findAll());
+				model.addAttribute("departamentos", deptRepo.findAll());
+				return "funcionarios/form";
+			}
+		}
+		if (br.hasErrors()) {
+			model.addAttribute("cargos", cargoRepo.findAll());
+			model.addAttribute("departamentos", deptRepo.findAll());
+			return "funcionarios/form";
+		}
 		funcRepo.save(funcionario);
 		return "redirect:/funcionarios";
 	}

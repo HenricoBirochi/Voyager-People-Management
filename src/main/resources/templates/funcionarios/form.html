@@ -8,41 +8,53 @@
 </head>
 <body>
 <div th:replace="fragments/header.html :: navbar"></div>
-<div class="container">
-  <h2>Novo Funcionário</h2>
-  <form th:action="@{/funcionarios/save}" th:object="${funcionario}" method="post">
-    <div style="margin-bottom:1rem">
-      <label>Nome</label>
-      <input type="text" th:field="*{nome}" class="form-input" required />
-    </div>
-    <div style="margin-bottom:1rem">
-      <label>CPF</label>
-      <input type="text" th:field="*{cpf}" class="form-input" required />
-    </div>
-    <div style="margin-bottom:1rem">
-      <label>Data de Nascimento</label>
-      <input type="date" th:field="*{dataDeNascimento}" class="form-input" required />
-    </div>
-    <div style="margin-bottom:1rem">
-      <label>Data de Contratação</label>
-      <input type="date" th:field="*{dataDeContratacao}" class="form-input" required />
-    </div>
-    <div style="margin-bottom:1rem">
-      <label>Cargo</label>
-      <select name="cargoId" class="form-input">
-        <option th:each="c : ${cargos}" th:value="${c.id}" th:text="${c.nome}"></option>
-      </select>
-    </div>
-    <div style="margin-bottom:1rem">
-      <label>Departamento</label>
-      <select name="departamentoId" class="form-input">
-        <option th:each="d : ${departamentos}" th:value="${d.id}" th:text="${d.nome}"></option>
-      </select>
-    </div>
-  <button class="btn btn-primary">Salvar</button>
-  <a class="btn" th:href="@{/funcionarios}">Cancelar</a>
-  </form>
+<div class="centered-content-page">
+  <div class="main-box-page">
+    <h2>Novo Funcionário</h2>
+    <form th:action="@{/funcionarios/save}" th:object="${funcionario}" method="post">
+      <div th:if="${errorMessage}" class="form-error" style="color:#b00;margin-bottom:1rem;">[[${errorMessage}]]</div>
+      <div style="margin-bottom:1rem">
+        <label>Nome</label>
+        <input type="text" th:field="*{nome}" class="form-input" required />
+      </div>
+      <div style="margin-bottom:1rem">
+        <label>CPF</label>
+        <input type="text" th:field="*{cpf}" class="form-input" required maxlength="14" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="000.000.000-00" oninput="mascaraCPF(this)" />
+      </div>
+<script>
+function mascaraCPF(input) {
+  let v = input.value.replace(/\D/g,"");
+  v = v.replace(/(\d{3})(\d)/, "$1.$2");
+  v = v.replace(/(\d{3})(\d)/, "$1.$2");
+  v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  input.value = v;
+}
+</script>
+      <div style="margin-bottom:1rem">
+        <label>Data de Nascimento</label>
+        <input type="date" th:field="*{dataDeNascimento}" class="form-input" required />
+      </div>
+      <div style="margin-bottom:1rem">
+        <label>Data de Contratação</label>
+        <input type="date" th:field="*{dataDeContratacao}" class="form-input" required />
+      </div>
+      <div style="margin-bottom:1rem">
+        <label>Cargo</label>
+        <select name="cargoId" class="form-input">
+          <option th:each="c : ${cargos}" th:value="${c.id}" th:text="${c.nome}"></option>
+        </select>
+      </div>
+      <div style="margin-bottom:1rem">
+        <label>Departamento</label>
+        <select name="departamentoId" class="form-input">
+          <option th:each="d : ${departamentos}" th:value="${d.id}" th:text="${d.nome}"></option>
+        </select>
+      </div>
+      <button class="btn btn-primary">Salvar</button>
+      <a class="btn" th:href="@{/funcionarios}">Cancelar</a>
+    </form>
   </div>
+</div>
   <div th:replace="fragments/footer.html :: footer"></div>
 </body>
 </html>
