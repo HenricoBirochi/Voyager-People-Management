@@ -8,7 +8,7 @@
 	<link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
 </head>
 <body>
-<div th:replace="fragments/header.html :: navbar"></div>
+<div th:replace="~{fragments/header.html :: navbar}"></div>
 
 
 <div class="centered-content">
@@ -18,8 +18,8 @@
 			<p class="small">Veja as listagem de cargos, departamentos e funcionários da empresa</p>
 			<p class="btn-group-home">
 				<a class="btn btn-primary" th:href="@{/cargos}">Cargos</a>
-				<a class="btn btn-secondary" th:href="@{/departamentos}">Departamentos</a>
-				<a class="btn btn-outline-primary" th:href="@{/funcionarios}">Funcionários</a>
+				<a class="btn btn-primary" th:href="@{/departamentos}">Departamentos</a>
+				<a class="btn btn-primary" th:href="@{/funcionarios}">Funcionários</a>
 			</p>
 		</div>
 		<div class="row row-cards">
@@ -29,7 +29,7 @@
 						<h5 class="card-title">Cargos</h5>
 						<p class="card-text">Crie funções com respectivos salários.</p>
 						<p class="h3" th:text="${cargosCount}"></p>
-						<a th:href="@{/cargos}" class="btn btn-outline-primary">Gerenciar</a>
+						<a th:href="@{/cargos}" class="btn btn-primary">Gerenciar</a>
 					</div>
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 						<h5 class="card-title">Departamentos</h5>
 						<p class="card-text">Gerencie setores da empresa.</p>
 						<p class="h3" th:text="${departamentosCount}"></p>
-						<a th:href="@{/departamentos}" class="btn btn-outline-secondary">Gerenciar</a>
+						<a th:href="@{/departamentos}" class="btn btn-primary">Gerenciar</a>
 					</div>
 				</div>
 			</div>
@@ -49,7 +49,7 @@
 						<h5 class="card-title">Funcionários</h5>
 						<p class="card-text">Cadastre e acompanhe colaboradores.</p>
 						<p class="h3" th:text="${funcionariosCount}"></p>
-						<a th:href="@{/funcionarios}" class="btn btn-outline-success">Gerenciar</a>
+						<a th:href="@{/funcionarios}" class="btn btn-primary">Gerenciar</a>
 					</div>
 				</div>
 			</div>
