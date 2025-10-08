@@ -78,6 +78,114 @@ public class ReportsController {
         return "reports/daily";
     }
 
+    @GetMapping("/reports/employees/export.csv")
+    @ResponseBody
+    public ResponseEntity<byte[]> exportEmployeesCsv(@RequestParam(required = false) Long departamentoId, @RequestParam(required = false) Long cargoId, @RequestParam(required = false) Long terceirizadaId) throws Exception {
+        var list = funcionarioService.findAll();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (var writer = new OutputStreamWriter(baos, StandardCharsets.UTF_8)) {
+            writer.write("nome,departamento,cargo,projetos\n");
+            for (var f : list) {
+                String dept = f.getDepartamento() != null ? f.getDepartamento().getNome() : "";
+                String cargo = f.getCargo() != null ? f.getCargo().getNome() : "";
+                String projetos = f.getProjetos() != null ? String.join(";", f.getProjetos().stream().map(p -> p.getNome()).toList()) : "";
+                writer.write(String.format("\"%s\",%s,%s,%s\n", f.getNome(), dept, cargo, projetos));
+            }
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("text/csv; charset=UTF-8"));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=employees.csv");
+        return ResponseEntity.ok().headers(headers).body(baos.toByteArray());
+    }
+
+    @GetMapping("/reports/employees/export.pdf")
+    @ResponseBody
+    public ResponseEntity<byte[]> exportEmployeesPdf(@RequestParam(required = false) Long departamentoId, @RequestParam(required = false) Long cargoId, @RequestParam(required = false) Long terceirizadaId) throws Exception {
+        var list = funcionarioService.findAll();
+
+        try (PDDocument doc = new PDDocument()) {
+            PDPage page = new PDPage();
+            doc.addPage(page);
+            try (PDPageContentStream cs = new PDPageContentStream(doc, page)) {
+                cs.beginText();
+                cs.setFont(PDType1Font.HELVETICA_BOLD, 14);
+                cs.newLineAtOffset(50, 750);
+                cs.showText("Relatório de Funcionários");
+                cs.newLineAtOffset(0, -20);
+                cs.setFont(PDType1Font.HELVETICA, 10);
+                for (var f : list) {
+                    String line = String.format("%s | %s | %s", f.getNome(), f.getDepartamento() != null ? f.getDepartamento().getNome() : "", f.getCargo() != null ? f.getCargo().getNome() : "");
+                    cs.showText(line);
+                    cs.newLineAtOffset(0, -14);
+                }
+                cs.endText();
+            }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            doc.save(baos);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=employees.pdf");
+            return ResponseEntity.ok().headers(headers).body(baos.toByteArray());
+        }
+    }
+
+    @GetMapping("/reports/daily/export.csv")
+    @ResponseBody
+    public ResponseEntity<byte[]> exportDailyCsv() throws Exception {
+        // produce a simple CSV with today's visitors and counts
+        var hojeInicio = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+        var hojeFim = hojeInicio.plusDays(1);
+        var visitantes = visitanteService.relatorioPeriodo(hojeInicio, hojeFim);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (var writer = new OutputStreamWriter(baos, StandardCharsets.UTF_8)) {
+            writer.write("tipo,nome,entrada,saida,destino\n");
+            for (var v : visitantes) {
+                String destino = v.getFuncionarioVisitado() != null ? v.getFuncionarioVisitado().getNome() : (v.getDepartamentoVisitado() != null ? v.getDepartamentoVisitado().getNome() : "");
+                writer.write(String.format("visitante,\"%s\",%s,%s,%s\n", v.getNomeCompleto(), v.getDataEntrada(), v.getDataSaida(), destino));
+            }
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("text/csv; charset=UTF-8"));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=daily.csv");
+        return ResponseEntity.ok().headers(headers).body(baos.toByteArray());
+    }
+
+    @GetMapping("/reports/daily/export.pdf")
+    @ResponseBody
+    public ResponseEntity<byte[]> exportDailyPdf() throws Exception {
+        var hojeInicio = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+        var hojeFim = hojeInicio.plusDays(1);
+        var visitantes = visitanteService.relatorioPeriodo(hojeInicio, hojeFim);
+
+        try (PDDocument doc = new PDDocument()) {
+            PDPage page = new PDPage();
+            doc.addPage(page);
+            try (PDPageContentStream cs = new PDPageContentStream(doc, page)) {
+                cs.beginText();
+                cs.setFont(PDType1Font.HELVETICA_BOLD, 14);
+                cs.newLineAtOffset(50, 750);
+                cs.showText("Relatório Diário");
+                cs.newLineAtOffset(0, -20);
+                cs.setFont(PDType1Font.HELVETICA, 10);
+                for (var v : visitantes) {
+                    String line = String.format("%s | %s | %s", v.getNomeCompleto(), v.getDataEntrada(), v.getDataSaida());
+                    cs.showText(line);
+                    cs.newLineAtOffset(0, -14);
+                }
+                cs.endText();
+            }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            doc.save(baos);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=daily.pdf");
+            return ResponseEntity.ok().headers(headers).body(baos.toByteArray());
+        }
+    }
+
     @GetMapping("/reports/visitantes/export.csv")
     @ResponseBody
     public ResponseEntity<byte[]> exportVisitantesCsv(@RequestParam(required = false) String inicio, @RequestParam(required = false) String fim) throws Exception {
