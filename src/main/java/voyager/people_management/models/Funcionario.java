@@ -40,6 +40,11 @@ public class Funcionario extends AbstractEntity {
     @JoinColumn(name = "id_departamento_fk")
     private Departamento departamento;
 
-    @ManyToMany(mappedBy = "funcionarios")
+    @ManyToMany
+    @jakarta.persistence.JoinTable(name = "funcionario_projeto",
+        joinColumns = @jakarta.persistence.JoinColumn(name = "funcionario_id"),
+        inverseJoinColumns = @jakarta.persistence.JoinColumn(name = "projeto_id"))
     private List<Projeto> projetos;
+
+    // convenience methods can be added in the future (addProjeto/removeProjeto)
 }

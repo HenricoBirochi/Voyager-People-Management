@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Visitantes</title>
+    <link
+      rel="stylesheet"
+      th:href="@{/css/styles.css}"
+      href="/css/styles.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+          "
+        >
+          <h2>Visitantes</h2>
+          <a class="btn btn-primary" th:href="@{/visitantes/new}"
+            >Registrar visitante</a
+          >
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Documento</th>
+              <th>Motivo</th>
+              <th>Entrada</th>
+              <th>Saída</th>
+              <th>Destino</th>
+              <th>Crachá</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="v : ${visitantes}">
+              <td th:text="${v.nomeCompleto}"></td>
+              <td th:text="${v.documento}"></td>
+              <td th:text="${v.motivo}"></td>
+              <td th:text="${v.dataEntrada}"></td>
+              <td th:text="${v.dataSaida}"></td>
+              <td
+                th:text="${v.funcionarioVisitado != null ? v.funcionarioVisitado.nome : (v.departamentoVisitado != null ? v.departamentoVisitado.nome : '')}"
+              ></td>
+              <td th:text="${v.crachaCodigo}"></td>
+              <td>
+                <a class="btn" th:href="@{'/visitantes/cracha/' + ${v.id}}"
+                  >Cracha</a
+                >
+                <form
+                  th:action="@{'/visitantes/' + ${v.id} + '/saida'}"
+                  method="post"
+                  style="display: inline"
+                >
+                  <button class="btn btn-secondary" type="submit">
+                    Registrar Saída
+                  </button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
+</html>

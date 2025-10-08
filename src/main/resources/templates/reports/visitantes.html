@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Relatório - Visitantes</title>
+    <link
+      rel="stylesheet"
+      th:href="@{/css/styles.css}"
+      href="/css/styles.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <h2>Visitantes</h2>
+        <div>
+          <a class="btn" th:href="@{/reports/visitantes/export.csv}"
+            >Exportar CSV</a
+          >
+          <a class="btn" th:href="@{/reports/visitantes/export.pdf}"
+            >Exportar PDF</a
+          >
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Documento</th>
+              <th>Entrada</th>
+              <th>Saída</th>
+              <th>Destino</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="v : ${visitantes}">
+              <td th:text="${v.nomeCompleto}"></td>
+              <td th:text="${v.documento}"></td>
+              <td th:text="${v.dataEntrada}"></td>
+              <td th:text="${v.dataSaida}"></td>
+              <td
+                th:text="${v.funcionarioVisitado != null ? v.funcionarioVisitado.nome : (v.departamentoVisitado != null ? v.departamentoVisitado.nome : '')}"
+              ></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
+</html>

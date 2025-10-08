@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Relatório - Funcionários</title>
+    <link
+      rel="stylesheet"
+      th:href="@{/css/styles.css}"
+      href="/css/styles.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <h2>Funcionários</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Departamento</th>
+              <th>Cargo</th>
+              <th>Projetos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="f : ${funcionarios}">
+              <td th:text="${f.nome}"></td>
+              <td
+                th:text="${f.departamento != null ? f.departamento.nome : ''}"
+              ></td>
+              <td th:text="${f.cargo != null ? f.cargo.nome : ''}"></td>
+              <td th:text="${#lists.join(f.projetos, ', ')}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
+</html>

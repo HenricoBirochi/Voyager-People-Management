@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pontos - Terceirizado</title>
+    <link
+      rel="stylesheet"
+      th:href="@{/css/styles.css}"
+      href="/css/styles.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <h2>Pontos de <span th:text="${terceirizado.nome}"></span></h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Horário</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="p : ${pontos}">
+              <td th:text="${p.horario}"></td>
+              <td th:text="${p.tipo}"></td>
+            </tr>
+          </tbody>
+        </table>
+        <a class="btn" th:href="@{/terceirizados}">Voltar</a>
+      </div>
+    </div>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
+</html>

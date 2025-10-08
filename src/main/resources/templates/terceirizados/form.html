@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Novo Terceirizado</title>
+    <link
+      rel="stylesheet"
+      th:href="@{/css/styles.css}"
+      href="/css/styles.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <h2
+          th:text="${terceirizado.id} != null ? 'Editar Terceirizado' : 'Novo Terceirizado'"
+        ></h2>
+        <form
+          th:action="@{/terceirizados/save}"
+          th:object="${terceirizado}"
+          method="post"
+        >
+          <input type="hidden" th:if="${terceirizado.id}" th:field="*{id}" />
+          <div class="form-group">
+            <label>Nome</label>
+            <input class="form-control" th:field="*{nome}" />
+          </div>
+          <div class="form-group">
+            <label>CPF</label>
+            <input class="form-control" th:field="*{cpf}" />
+          </div>
+          <div class="form-group">
+            <label>Função</label>
+            <input class="form-control" th:field="*{funcao}" />
+          </div>
+          <div class="form-group">
+            <label>Empresa Prestadora</label>
+            <input class="form-control" th:field="*{empresaPrestadora}" />
+          </div>
+          <div class="form-group">
+            <label>Data Início</label>
+            <input type="date" class="form-control" th:field="*{dataInicio}" />
+          </div>
+          <div class="form-group">
+            <label>Data Fim</label>
+            <input type="date" class="form-control" th:field="*{dataFim}" />
+          </div>
+          <div class="form-group">
+            <label>Responsável Interno</label>
+            <select
+              class="form-control"
+              th:field="*{responsavelInterno}"
+              th:object="${terceirizado}"
+            >
+              <option
+                th:each="f : ${funcionarios}"
+                th:value="${f.id}"
+                th:text="${f.nome}"
+              ></option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Departamentos</label>
+            <select class="form-control" multiple th:field="*{departamentos}">
+              <option
+                th:each="d : ${departamentos}"
+                th:value="${d.id}"
+                th:text="${d.nome}"
+              ></option>
+            </select>
+          </div>
+          <div style="margin-top: 1rem">
+            <button class="btn btn-primary" type="submit">Salvar</button>
+            <a class="btn" th:href="@{/terceirizados}">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
+</html>

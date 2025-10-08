@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Histórico de Cargos</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/styles.css}"
+      href="/css/styles.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <h2>
+          Histórico de Cargos de <span th:text="${funcionario.nome}"></span>
+        </h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Cargo</th>
+              <th>Início</th>
+              <th>Fim</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="h : ${historicos}">
+              <td th:text="${h.cargo != null ? h.cargo.nome : ''}"></td>
+              <td th:text="${h.dataInicio}"></td>
+              <td th:text="${h.dataFim != null ? h.dataFim : ''}"></td>
+            </tr>
+          </tbody>
+        </table>
+        <a class="btn" th:href="@{/funcionarios}">Voltar</a>
+      </div>
+    </div>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
+</html>

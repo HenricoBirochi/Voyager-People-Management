@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Terceirizados</title>
+    <link
+      rel="stylesheet"
+      th:href="@{/css/styles.css}"
+      href="/css/styles.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+          "
+        >
+          <h2>Terceirizados</h2>
+          <a class="btn btn-primary" th:href="@{/terceirizados/new}"
+            >Novo Terceirizado</a
+          >
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>Função</th>
+              <th>Empresa</th>
+              <th>Período</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="t : ${terceirizados}">
+              <td th:text="${t.nome}"></td>
+              <td th:text="${t.cpf}"></td>
+              <td th:text="${t.funcao}"></td>
+              <td th:text="${t.empresaPrestadora}"></td>
+              <td
+                th:text="${t.dataInicio} + ' - ' + (t.dataFim != null ? t.dataFim : '')"
+              ></td>
+              <td>
+                <a
+                  class="btn"
+                  th:href="@{'/terceirizados/' + ${t.id} + '/pontos'}"
+                  >Pontos</a
+                >
+                <form
+                  th:action="@{'/terceirizados/' + ${t.id} + '/renovar'}"
+                  method="post"
+                  style="display: inline"
+                >
+                  <input type="text" name="novoFim" placeholder="YYYY-MM-DD" />
+                  <button class="btn btn-secondary" type="submit">
+                    Renovar
+                  </button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
+</html>

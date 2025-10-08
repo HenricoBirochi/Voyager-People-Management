@@ -1,15 +1,16 @@
 <head th:fragment="head">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
-    <title th:insert="~{::title}">Voyager</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css" />
+  <title th:insert="~{::title}">Voyager</title>
 </head>
 <nav th:fragment="navbar" class="navbar">
   <div class="nav nav-full">
     <a class="brand" href="/" th:href="@{/}">Voyager</a>
-  <a href="/cargos" th:href="@{/cargos}">Cargos</a>
-  <a href="/departamentos" th:href="@{/departamentos}">Departamentos</a>
-  <a href="/funcionarios" th:href="@{/funcionarios}">Funcionários</a>
-  <a href="/projetos" th:href="@{/projetos}">Projetos</a>
+    <a href="/cargos" th:href="@{/cargos}">Cargos</a>
+    <a href="/departamentos" th:href="@{/departamentos}">Departamentos</a>
+    <a href="/funcionarios" th:href="@{/funcionarios}">Funcionários</a>
+    <a href="/projetos" th:href="@{/projetos}">Projetos</a>
+    <a href="/terceirizados" th:href="@{/terceirizados}">Terceirizados</a>
   </div>
 </nav>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Registrar Atividade</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/styles.css}"
+      href="/css/styles.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <h2>
+          Registrar atividade para <span th:text="${funcionario.nome}"></span>
+        </h2>
+        <form
+          th:action="@{'/funcionarios/' + ${funcionario.id} + '/atividade/save'}"
+          method="post"
+        >
+          <div style="margin-bottom: 1rem">
+            <label>Início (ISO Local Date Time)</label>
+            <input
+              type="text"
+              name="inicio"
+              placeholder="2025-10-07T09:00:00"
+              class="form-input"
+              required
+            />
+          </div>
+          <div style="margin-bottom: 1rem">
+            <label>Fim (ISO Local Date Time)</label>
+            <input
+              type="text"
+              name="fim"
+              placeholder="2025-10-07T12:00:00"
+              class="form-input"
+              required
+            />
+          </div>
+          <div style="margin-bottom: 1rem">
+            <label>Descrição</label>
+            <textarea name="descricao" class="form-input" rows="5"></textarea>
+          </div>
+          <button class="btn btn-primary">Registrar</button>
+          <a class="btn" th:href="@{/funcionarios}">Cancelar</a>
+        </form>
+      </div>
+    </div>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
+</html>

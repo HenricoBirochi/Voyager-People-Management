@@ -1,56 +1,120 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Voyager — Funcionários</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
-</head>
-<body>
-<div th:replace="~{fragments/header.html :: navbar}"></div>
-<div class="centered-content-page">
-  <div class="main-box-page">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-      <h2>Funcionários</h2>
-      <a class="btn btn-primary" th:href="@{/funcionarios/new}">Novo Funcionário</a>
+  <head>
+    <title>Voyager — Funcionários</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/styles.css}"
+      href="/css/styles.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+          "
+        >
+          <h2>Funcionários</h2>
+          <a class="btn btn-primary" th:href="@{/funcionarios/new}"
+            >Novo Funcionário</a
+          >
+        </div>
+        <div style="overflow-x: auto">
+          <table
+            class="table"
+            style="min-width: 900px; width: 100%; margin: 0 auto"
+          >
+            <thead>
+              <tr>
+                <th style="text-align: left">Nome</th>
+                <th style="text-align: left">CPF</th>
+                <th style="text-align: left">Data de Nascimento</th>
+                <th style="text-align: left">Data de Contratação</th>
+                <th style="text-align: left">Cargo</th>
+                <th style="text-align: left">Departamento</th>
+                <th style="text-align: left">Projetos</th>
+                <th style="width: 120px; text-align: center">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="f : ${funcionarios}">
+                <td th:text="${f.nome}"></td>
+                <td th:text="${f.cpf}"></td>
+                <td
+                  th:text="${#temporals.format(f.dataDeNascimento, 'dd/MM/yyyy')}"
+                ></td>
+                <td
+                  th:text="${#temporals.format(f.dataDeContratacao, 'dd/MM/yyyy')}"
+                ></td>
+                <td th:text="${f.cargo != null ? f.cargo.nome : ''}"></td>
+                <td
+                  th:text="${f.departamento != null ? f.departamento.nome : ''}"
+                ></td>
+                <td>
+                  <span
+                    th:if="${f.projetos != null}"
+                    th:each="p, iter : ${f.projetos}"
+                    th:text="${p.nome + (iter.last ? '' : ', ')}"
+                  ></span>
+                </td>
+                <td style="text-align: center; vertical-align: middle">
+                  <form
+                    th:action="@{'/funcionarios/' + ${f.id} + '/bater-ponto'}"
+                    method="post"
+                    style="display: inline"
+                  >
+                    <button class="btn btn-primary" type="submit">
+                      Bater Ponto
+                    </button>
+                  </form>
+                  <a
+                    class="btn btn-secondary"
+                    th:href="@{'/funcionarios/' + ${f.id} + '/atividade/new'}"
+                    >Nova Atividade</a
+                  >
+                  <a
+                    class="btn"
+                    th:href="@{'/funcionarios/' + ${f.id} + '/pontos'}"
+                    >Ver Pontos</a
+                  >
+                  <a
+                    class="btn"
+                    th:href="@{'/funcionarios/' + ${f.id} + '/atividades'}"
+                    >Ver Atividades</a
+                  >
+                  <a
+                    class="btn"
+                    th:href="@{'/funcionarios/' + ${f.id} + '/historico-cargos'}"
+                    >Histórico</a
+                  >
+                  <a
+                    class="btn btn-secondary"
+                    th:href="@{'/funcionarios/edit/' + ${f.id}}"
+                    >Editar</a
+                  >
+                  <a
+                    class="btn btn-danger"
+                    th:href="@{'/funcionarios/delete/' + ${f.id}}"
+                    onclick="return confirm('Tem certeza que deseja excluir este registro?')"
+                    >Excluir</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- botão de exclusão simples, sem modal -->
+      </div>
     </div>
-    <div style="overflow-x:auto;">
-      <table class="table" style="min-width:900px;width:100%;margin:0 auto;">
-        <thead>
-          <tr>
-            <th style="text-align:left;">Nome</th>
-            <th style="text-align:left;">CPF</th>
-            <th style="text-align:left;">Data de Nascimento</th>
-            <th style="text-align:left;">Data de Contratação</th>
-            <th style="text-align:left;">Cargo</th>
-            <th style="text-align:left;">Departamento</th>
-            <th style="text-align:left;">Projetos</th>
-            <th style="width:120px;text-align:center;">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="f : ${funcionarios}">
-            <td th:text="${f.nome}"></td>
-            <td th:text="${f.cpf}"></td>
-            <td th:text="${#temporals.format(f.dataDeNascimento, 'dd/MM/yyyy')}"></td>
-            <td th:text="${#temporals.format(f.dataDeContratacao, 'dd/MM/yyyy')}"></td>
-            <td th:text="${f.cargo != null ? f.cargo.nome : ''}"></td>
-            <td th:text="${f.departamento != null ? f.departamento.nome : ''}"></td>
-            <td>
-              <span th:if="${f.projetos != null}" th:each="p, iter : ${f.projetos}" th:text="${p.nome + (iter.last ? '' : ', ')}"></span>
-            </td>
-            <td style="text-align:center;vertical-align:middle;">
-              <a class="btn btn-secondary" th:href="@{'/funcionarios/edit/' + ${f.id}}">Editar</a>
-              <a class="btn btn-danger" th:href="@{'/funcionarios/delete/' + ${f.id}}" onclick="return confirm('Tem certeza que deseja excluir este registro?')">Excluir</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- botão de exclusão simples, sem modal -->
-  </div>
-</div>
-<div th:replace="~{fragments/footer.html :: footer}"></div>
-</body>
-<!-- sem script de modal -->
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
+  <!-- sem script de modal -->
 </html>

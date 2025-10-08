@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Relatório Diário</title>
+    <link
+      rel="stylesheet"
+      th:href="@{/css/styles.css}"
+      href="/css/styles.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <h2>Circulação diária</h2>
+        <h3>Visitantes hoje</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Entrada</th>
+              <th>Saída</th>
+              <th>Destino</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="v : ${visitantesHoje}">
+              <td th:text="${v.nomeCompleto}"></td>
+              <td th:text="${v.dataEntrada}"></td>
+              <td th:text="${v.dataSaida}"></td>
+              <td
+                th:text="${v.funcionarioVisitado != null ? v.funcionarioVisitado.nome : (v.departamentoVisitado != null ? v.departamentoVisitado.nome : '')}"
+              ></td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Funcionários</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Departamento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="f : ${funcionarios}">
+              <td th:text="${f.nome}"></td>
+              <td
+                th:text="${f.departamento != null ? f.departamento.nome : ''}"
+              ></td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Terceirizados</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Empresa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="t : ${terceirizados}">
+              <td th:text="${t.nome}"></td>
+              <td th:text="${t.empresaPrestadora}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
+</html>
