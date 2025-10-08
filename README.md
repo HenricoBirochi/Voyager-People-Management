@@ -59,8 +59,8 @@ Um diagrama simples que mostra os principais componentes e fluxo de dados. Você
 ```mermaid
 graph LR
   DB[(PostgreSQL)] -->|JDBC| Backend(Spring Boot)
-  Backend -->|Thymeleaf| Templates[Templates (HTML)]
-  Browser[Browser/Cliente] -->|HTTP| Backend
+  Backend -->|Thymeleaf| Templates["Templates (HTML)"]
+  Browser["Browser/Cliente"] -->|HTTP| Backend
   subgraph BackendModules
     Controllers[Controllers]
     Services[Services]
