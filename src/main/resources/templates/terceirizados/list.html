@@ -53,8 +53,14 @@
                     <span aria-hidden="true">☰</span>
                   </button>
                   <div class="action-menu-list" style="display: none">
-                    <a th:href="@{/terceirizados/{id}/pontos(id=${t.id})}">Pontos</a>
-                    <form th:action="@{/terceirizados/{id}/renovar(id=${t.id})}" method="post" onsubmit="return confirm('Tem certeza?')">
+                    <a th:href="@{/terceirizados/{id}/pontos(id=${t.id})}"
+                      >Pontos</a
+                    >
+                    <form
+                      th:action="@{/terceirizados/{id}/renovar(id=${t.id})}"
+                      method="post"
+                      onsubmit="return confirm('Tem certeza?')"
+                    >
                       <button type="submit">Renovar</button>
                     </form>
                   </div>

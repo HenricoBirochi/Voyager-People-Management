@@ -57,8 +57,14 @@
                     <span aria-hidden="true">☰</span>
                   </button>
                   <div class="action-menu-list" style="display: none">
-                    <a th:href="@{/visitantes/cracha/{id}(id=${v.id})}">Crachá</a>
-                    <form th:action="@{/visitantes/{id}/saida(id=${v.id})}" method="post" onsubmit="return confirm('Tem certeza?')">
+                    <a th:href="@{/visitantes/cracha/{id}(id=${v.id})}"
+                      >Crachá</a
+                    >
+                    <form
+                      th:action="@{/visitantes/{id}/saida(id=${v.id})}"
+                      method="post"
+                      onsubmit="return confirm('Tem certeza?')"
+                    >
                       <button type="submit">Registrar Saída</button>
                     </form>
                   </div>
