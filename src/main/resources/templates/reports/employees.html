@@ -14,11 +14,22 @@
     <div th:replace="~{fragments/header.html :: navbar}"></div>
     <div class="centered-content-page">
       <div class="main-box-page">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+          "
+        >
           <h2>Funcionários</h2>
           <div>
-            <a class="btn" th:href="@{/reports/employees/export.csv}">Exportar CSV</a>
-            <a class="btn" th:href="@{/reports/employees/export.pdf}">Exportar PDF</a>
+            <a class="btn" th:href="@{/reports/employees/export.csv}"
+              >Exportar CSV</a
+            >
+            <a class="btn" th:href="@{/reports/employees/export.pdf}"
+              >Exportar PDF</a
+            >
           </div>
         </div>
         <table class="table">
