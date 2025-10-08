@@ -1,46 +1,89 @@
-
 # Voyager People Management
 
-A small Spring Boot application for managing cargos, departamentos and funcionarios (Module 1).
+Uma aplicação simples em Spring Boot para gerenciar cargos, departamentos, funcionários, pontos e relatórios.
 
-## Requirements
+## Sobre
 
-- Java 21
-- Maven (the included ./mvnw wrapper can be used)
-- Docker (optional, for local PostgreSQL)
+Projeto desenvolvido para a disciplina "Linguagens de Programação II".
 
-## Running locally with Docker (recommended)
+## Autores / Créditos
 
-1. Start PostgreSQL with docker-compose (this creates a database `voyager` and user `voyager` / password `voyager`):
+- Faculdade: Engenheiro Slavador Arena
+- Disciplina: Linguagens de Programação II
+- Edgar Camacho Seabra Ribeiro — RA: 081230039
+- Nicholas Birochi — RA: 081230038
 
-	docker-compose up -d
+## Requisitos
 
-2. Run the application:
+- Java 21 (conforme `pom.xml`)
+- Maven (use o wrapper incluído `./mvnw`)
+- Docker (opcional, recomendado para rodar PostgreSQL localmente)
 
-	./mvnw spring-boot:run
+## Como rodar (local)
 
-The application reads the JDBC configuration from environment variables with sensible defaults. The defaults are:
+1. (Opcional) Inicie o PostgreSQL com Docker Compose. O arquivo `docker-compose.yml` já configura um banco `voyager` com usuário `voyager` / senha `voyager`:
+
+```bash
+docker-compose up -d
+```
+
+2. Rode a aplicação usando o wrapper do Maven:
+
+```bash
+./mvnw spring-boot:run
+```
+
+Por padrão a aplicação tenta usar as seguintes variáveis de ambiente (se não estiverem definidas, ajuste o `application.properties` ou forneça variáveis):
 
 - JDBC_DATABASE_URL=jdbc:postgresql://localhost:5432/voyager
 - JDBC_DATABASE_USERNAME=voyager
 - JDBC_DATABASE_PASSWORD=voyager
 
-If you prefer a different database or credentials, set the environment variables before running the app.
+## Rodando sem Docker
 
-## Running without Docker
+Se preferir usar um PostgreSQL já existente, defina as variáveis de ambiente acima apontando para seu banco e em seguida rode:
 
-Make sure you have a PostgreSQL instance reachable by the JDBC URL and set the environment variables:
+```bash
+./mvnw spring-boot:run
+```
 
-- JDBC_DATABASE_URL
-- JDBC_DATABASE_USERNAME
-- JDBC_DATABASE_PASSWORD
+## Observações
 
-Then run:
+- Em desenvolvimento o projeto usa `spring.jpa.hibernate.ddl-auto=update` para facilitar a evolução do esquema. Em produção, prefira usar migrações (Flyway/Liquibase) e uma política de DDL mais segura.
+- As views Thymeleaf estão em `src/main/resources/templates` e os recursos estáticos em `src/main/resources/static`.
 
-	./mvnw spring-boot:run
+## Diagrama (Mermaid)
 
-## Notes
+Um diagrama simples que mostra os principais componentes e fluxo de dados. Você pode colar este bloco em https://mermaid.live para visualizar.
 
-- Hibernate is configured with `spring.jpa.hibernate.ddl-auto=update` for development convenience. For production, prefer explicit migrations (Flyway/Liquibase) and a safer ddl-auto setting.
+```mermaid
+graph LR
+  DB[(PostgreSQL)] -->|JDBC| Backend(Spring Boot)
+  Backend -->|Thymeleaf| Templates[Templates (HTML)]
+  Browser[Browser/Cliente] -->|HTTP| Backend
+  subgraph BackendModules
+    Controllers[Controllers]
+    Services[Services]
+    Repositories[Repositories]
+    Controllers --> Services --> Repositories
+  end
+  Backend --> BackendModules
+```
 
-- The app uses Thymeleaf templates located under `src/main/resources/templates` and static assets under `src/main/resources/static`.
+## Build e testes
+
+Para executar testes (usa H2 em testes) e gerar o JAR:
+
+```bash
+./mvnw clean package
+```
+
+Para empacotar sem executar testes rápidos:
+
+```bash
+./mvnw -DskipTests package
+```
+
+## Contato
+
+Abra uma issue neste repositório para reportar bugs ou pedir melhorias. Os autores acima podem ser contatados pelos RAs listados.

@@ -2,6 +2,7 @@ package voyager.people_management.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -57,9 +58,14 @@ public class CargoController {
 		return "redirect:/cargos";
 	}
 
-	@GetMapping("/cargos/delete/{id}")
-	public String delete(@PathVariable Long id) {
-		cargoService.deleteById(id);
+	@PostMapping("/cargos/delete/{id}")
+	public String delete(@PathVariable Long id, RedirectAttributes ra) {
+		try {
+			cargoService.deleteById(id);
+			ra.addFlashAttribute("successMessage", "Cargo excluído com sucesso.");
+		} catch (IllegalStateException e) {
+			ra.addFlashAttribute("errorMessage", e.getMessage());
+		}
 		return "redirect:/cargos";
 	}
 }

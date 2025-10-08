@@ -7,25 +7,73 @@
         <!-- hamburger icon -->
         <button
           type="button"
-          class="action-menu-button"
-          th:attr="data-target=${'am-' + entityBase + '-' + id}"
+          class="action-menu-button btn btn-ghost"
+          th:attr="aria-controls=${'am-' + entityBase + '-' + id}, aria-expanded='false', data-target=${'am-' + entityBase + '-' + id}"
         >
           <span aria-hidden="true">☰</span>
+          <span class="sr-only">Abrir menu de ações</span>
         </button>
         <div
           class="action-menu-list"
           th:id="${'am-' + entityBase + '-' + id}"
           style="display: none"
+          role="menu"
+          th:attrappend="aria-label=${'Ações para ' + entityBase + ' ' + id}"
         >
-          <a th:href="@{${'/' + entityBase + '/edit/' + id}}">Editar</a>
+          <div th:if="${entityBase == 'funcionarios'}">
+            <form
+              th:action="@{'/funcionarios/' + ${id} + '/bater-ponto'}"
+              method="post"
+              style="margin: 0"
+            >
+              <button
+                type="submit"
+                class="btn btn-secondary"
+                title="Bater Ponto"
+              >
+                Bater Ponto
+              </button>
+            </form>
+            <a
+              class="btn btn-link"
+              th:href="@{'/funcionarios/' + ${id} + '/atividade/new'}"
+              >Nova Atividade</a
+            >
+            <a
+              class="btn btn-link"
+              th:href="@{'/funcionarios/' + ${id} + '/pontos'}"
+              >Ver Pontos</a
+            >
+            <a
+              class="btn btn-link"
+              th:href="@{'/funcionarios/' + ${id} + '/atividades'}"
+              >Ver Atividades</a
+            >
+            <a
+              class="btn btn-link"
+              th:href="@{'/funcionarios/' + ${id} + '/historico-cargos'}"
+              >Histórico</a
+            >
+            <hr />
+          </div>
+          <a
+            class="btn btn-secondary"
+            th:href="@{${'/' + entityBase + '/edit/' + id}}"
+            >Editar</a
+          >
           <!-- Some entities don't implement a /view route; link to edit to avoid 404s -->
-          <a th:href="@{${'/' + entityBase + '/edit/' + id}}">Visualizar</a>
+          <a
+            class="btn btn-link"
+            th:href="@{${'/' + entityBase + '/edit/' + id}}"
+            >Visualizar</a
+          >
           <form
             th:action="@{${'/' + entityBase + '/delete/' + id}}"
             method="post"
             onsubmit="return confirm('Tem certeza que deseja excluir este registro?')"
+            style="display: inline"
           >
-            <button type="submit" class="action-menu-delete">Excluir</button>
+            <button type="submit" class="btn btn-danger">Excluir</button>
           </form>
         </div>
       </div>
@@ -34,23 +82,30 @@
     <!-- Usage: th:replace="fragments/action-menu :: actionMenu(${items})" where items is a map with key 'list' pointing to an array of actions -->
     <div th:fragment="actionMenu(items)">
       <div class="action-menu">
-        <button type="button" class="action-menu-button">
+        <button type="button" class="action-menu-button btn btn-ghost">
           <span aria-hidden="true">☰</span>
+          <span class="sr-only">Abrir menu</span>
         </button>
-        <div class="action-menu-list" style="display: none">
+        <div class="action-menu-list" style="display: none" role="menu">
           <div th:each="it : ${items.list}">
             <a
               th:if="${it.url != null}"
               th:href="${it.url}"
+              class="btn btn-link"
               th:text="${it.label}"
             ></a>
             <form
               th:if="${it.formAction != null}"
               th:action="${it.formAction}"
               th:method="${it.method != null ? it.method : 'post'}"
-              onsubmit="return it.confirm == false ? true : confirm('Tem certeza?')"
+              th:attr="onsubmit=${it.confirm} == false ? null : 'return confirm(\'Tem certeza?\')'"
+              style="display: inline"
             >
-              <button type="submit" th:text="${it.label}"></button>
+              <button
+                type="submit"
+                class="btn btn-secondary"
+                th:text="${it.label}"
+              ></button>
             </form>
           </div>
         </div>

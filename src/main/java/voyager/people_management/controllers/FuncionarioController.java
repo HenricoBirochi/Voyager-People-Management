@@ -141,7 +141,7 @@ public class FuncionarioController {
 		return "redirect:/funcionarios";
 	}
 
-	@GetMapping("/funcionarios/delete/{id}")
+	@PostMapping("/funcionarios/delete/{id}")
 	public String delete(@PathVariable Long id) {
 		funcionarioService.deleteById(id);
 		return "redirect:/funcionarios";

@@ -16,22 +16,24 @@
 <nav th:fragment="navbar" class="navbar">
   <div class="nav nav-full">
     <a class="brand" href="/" th:href="@{/}">Voyager</a>
-    <a class="nav-link" href="/cargos" th:href="@{/cargos}">Cargos</a>
-    <a class="nav-link" href="/departamentos" th:href="@{/departamentos}"
-      >Departamentos</a
-    >
-    <a class="nav-link" href="/funcionarios" th:href="@{/funcionarios}"
-      >Funcionários</a
-    >
-    <a class="nav-link" href="/projetos" th:href="@{/projetos}">Projetos</a>
-    <a class="nav-link" href="/terceirizados" th:href="@{/terceirizados}"
-      >Terceirizados</a
-    >
-    <a class="nav-link" href="/visitantes" th:href="@{/visitantes}"
-      >Visitantes</a
-    >
-    <a class="nav-link" href="/reports/daily" th:href="@{/reports/daily}"
-      >Relatórios</a
-    >
+    <div class="nav-links">
+      <a class="nav-link" href="/cargos" th:href="@{/cargos}">Cargos</a>
+      <a class="nav-link" href="/departamentos" th:href="@{/departamentos}"
+        >Departamentos</a
+      >
+      <a class="nav-link" href="/funcionarios" th:href="@{/funcionarios}"
+        >Funcionários</a
+      >
+      <a class="nav-link" href="/projetos" th:href="@{/projetos}">Projetos</a>
+      <a class="nav-link" href="/terceirizados" th:href="@{/terceirizados}"
+        >Terceirizados</a
+      >
+      <a class="nav-link" href="/visitantes" th:href="@{/visitantes}"
+        >Visitantes</a
+      >
+      <a class="nav-link" href="/reports/daily" th:href="@{/reports/daily}"
+        >Relatórios</a
+      >
+    </div>
   </div>
 </nav>

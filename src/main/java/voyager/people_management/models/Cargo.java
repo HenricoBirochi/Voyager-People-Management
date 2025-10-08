@@ -23,6 +23,6 @@ public class Cargo extends AbstractEntity {
     @Column(nullable = false)
     private Double salario;
 
-    @OneToMany(mappedBy = "cargo", cascade = jakarta.persistence.CascadeType.REMOVE)
+    @OneToMany(mappedBy = "cargo")
     private List<Funcionario> funcionarios;
 }

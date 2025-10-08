@@ -42,17 +42,23 @@
               <tr th:each="d : ${departamentos}">
                 <td th:text="${d.nome}"></td>
                 <td style="text-align: center; vertical-align: middle">
-                  <a
-                    class="btn btn-secondary"
-                    th:href="@{'/departamentos/edit/' + ${d.id}}"
-                    >Editar</a
-                  >
-                  <a
-                    class="btn btn-danger"
-                    th:href="@{'/departamentos/delete/' + ${d.id}}"
-                    data-confirm="Tem certeza que deseja excluir este registro?"
-                    >Excluir</a
-                  >
+                  <div class="actions-inline">
+                    <a
+                      class="btn btn-secondary"
+                      th:href="@{'/departamentos/edit/' + ${d.id}}"
+                      >Editar</a
+                    >
+                    <form
+                      th:action="@{'/departamentos/delete/' + ${d.id}}"
+                      method="post"
+                      style="display: inline"
+                      onsubmit="return confirm('Tem certeza que deseja excluir este registro?')"
+                    >
+                      <button class="btn btn-danger" type="submit">
+                        Excluir
+                      </button>
+                    </form>
+                  </div>
                 </td>
               </tr>
             </tbody>

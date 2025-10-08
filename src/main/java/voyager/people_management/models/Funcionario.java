@@ -6,6 +6,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
 import jakarta.persistence.ManyToMany;
 import java.util.List;
@@ -45,6 +47,9 @@ public class Funcionario extends AbstractEntity {
         joinColumns = @jakarta.persistence.JoinColumn(name = "funcionario_id"),
         inverseJoinColumns = @jakarta.persistence.JoinColumn(name = "projeto_id"))
     private List<Projeto> projetos;
+
+    @OneToMany(mappedBy = "funcionario", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Ponto> pontos;
 
     // convenience methods can be added in the future (addProjeto/removeProjeto)
 }

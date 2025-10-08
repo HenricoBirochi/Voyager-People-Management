@@ -67,50 +67,8 @@
                 </td>
                 <td class="actions-cell">
                   <div
-                    class="action-menu"
-                    th:attr="id=${'am-funcionarios-' + f.id}"
-                  >
-                    <button
-                      type="button"
-                      class="action-menu-button"
-                      th:attr="data-target=${'am-funcionarios-' + f.id}"
-                      aria-expanded="false"
-                    >
-                      Ações ▾
-                    </button>
-                    <div class="action-menu-list">
-                      <form
-                        th:action="@{'/funcionarios/' + ${f.id} + '/bater-ponto'}"
-                        method="post"
-                        style="margin: 0"
-                      >
-                        <button type="submit">Bater Ponto</button>
-                      </form>
-                      <a
-                        th:href="@{'/funcionarios/' + ${f.id} + '/atividade/new'}"
-                        >Nova Atividade</a
-                      >
-                      <a th:href="@{'/funcionarios/' + ${f.id} + '/pontos'}"
-                        >Ver Pontos</a
-                      >
-                      <a th:href="@{'/funcionarios/' + ${f.id} + '/atividades'}"
-                        >Ver Atividades</a
-                      >
-                      <a
-                        th:href="@{'/funcionarios/' + ${f.id} + '/historico-cargos'}"
-                        >Histórico</a
-                      >
-                      <a th:href="@{'/funcionarios/edit/' + ${f.id}}">Editar</a>
-                      <form
-                        th:action="@{'/funcionarios/delete/' + ${f.id}}"
-                        method="post"
-                        data-confirm="Tem certeza que deseja excluir este registro?"
-                        style="margin: 0"
-                      >
-                        <button type="submit">Excluir</button>
-                      </form>
-                    </div>
-                  </div>
+                    th:replace="~{fragments/action-menu :: menu('funcionarios', ${f.id})}"
+                  ></div>
                 </td>
               </tr>
             </tbody>

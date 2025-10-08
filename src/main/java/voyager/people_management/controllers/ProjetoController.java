@@ -83,7 +83,7 @@ public class ProjetoController {
         return "redirect:/projetos";
     }
 
-    @GetMapping("/projetos/delete/{id}")
+    @PostMapping("/projetos/delete/{id}")
     public String delete(@PathVariable Long id) {
         projetoService.deleteById(id);
         return "redirect:/projetos";

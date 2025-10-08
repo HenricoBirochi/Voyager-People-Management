@@ -12,7 +12,7 @@
   </head>
   <body>
     <div th:replace="~{fragments/header.html :: navbar}"></div>
-    <div class="centered-content-page">
+  <div class="centered-content-page column">
       <div class="main-box-page">
         <div
           style="
@@ -25,7 +25,10 @@
           <h2>Cargos</h2>
           <a class="btn btn-primary" th:href="@{/cargos/new}">Novo Cargo</a>
         </div>
-        <div style="overflow-x: auto">
+        <div>
+          <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+          <div th:if="${errorMessage}" class="alert alert-error" th:text="${errorMessage}"></div>
+          <div style="overflow-x: auto">
           <table
             class="table"
             style="min-width: 600px; width: 100%; margin: 0 auto"
@@ -43,20 +46,9 @@
                 <td th:text="${c.salario}"></td>
                 <td style="text-align: center; vertical-align: middle">
                   <div class="actions-inline">
-                    <a
-                      class="btn btn-secondary"
-                      th:href="@{'/cargos/edit/' + ${c.id}}"
-                      >Editar</a
-                    >
-                    <form
-                      th:action="@{'/cargos/delete/' + ${c.id}}"
-                      method="post"
-                      onsubmit="return confirm('Tem certeza que deseja excluir este registro?')"
-                      style="display: inline"
-                    >
-                      <button class="btn btn-danger" type="submit">
-                        Excluir
-                      </button>
+                    <a class="btn btn-secondary" th:href="@{'/cargos/edit/' + ${c.id}}">Editar</a>
+                    <form th:action="@{'/cargos/delete/' + ${c.id}}" method="post" style="display: inline" onsubmit="return confirm('Tem certeza que deseja excluir este registro?')">
+                      <button class="btn btn-danger" type="submit">Excluir</button>
                     </form>
                   </div>
                 </td>

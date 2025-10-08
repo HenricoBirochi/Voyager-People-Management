@@ -57,7 +57,7 @@ public class DepartamentoController {
 		return "redirect:/departamentos";
 	}
 
-	@GetMapping("/departamentos/delete/{id}")
+	@PostMapping("/departamentos/delete/{id}")
 	public String delete(@PathVariable Long id) {
 		departamentoService.deleteById(id);
 		return "redirect:/departamentos";
