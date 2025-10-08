@@ -1,16 +1,37 @@
 <head th:fragment="head">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css" />
+  <link
+    rel="stylesheet"
+    th:href="@{/css/shadcn-style.css}"
+    href="/css/shadcn-style.css"
+  />
   <title th:insert="~{::title}">Voyager</title>
+  <script
+    th:src="@{/js/action-menu.js}"
+    src="/js/action-menu.js"
+    defer
+  ></script>
 </head>
 <nav th:fragment="navbar" class="navbar">
   <div class="nav nav-full">
     <a class="brand" href="/" th:href="@{/}">Voyager</a>
-    <a href="/cargos" th:href="@{/cargos}">Cargos</a>
-    <a href="/departamentos" th:href="@{/departamentos}">Departamentos</a>
-    <a href="/funcionarios" th:href="@{/funcionarios}">Funcionários</a>
-    <a href="/projetos" th:href="@{/projetos}">Projetos</a>
-    <a href="/terceirizados" th:href="@{/terceirizados}">Terceirizados</a>
+    <a class="nav-link" href="/cargos" th:href="@{/cargos}">Cargos</a>
+    <a class="nav-link" href="/departamentos" th:href="@{/departamentos}"
+      >Departamentos</a
+    >
+    <a class="nav-link" href="/funcionarios" th:href="@{/funcionarios}"
+      >Funcionários</a
+    >
+    <a class="nav-link" href="/projetos" th:href="@{/projetos}">Projetos</a>
+    <a class="nav-link" href="/terceirizados" th:href="@{/terceirizados}"
+      >Terceirizados</a
+    >
+    <a class="nav-link" href="/visitantes" th:href="@{/visitantes}"
+      >Visitantes</a
+    >
+    <a class="nav-link" href="/reports/daily" th:href="@{/reports/daily}"
+      >Relatórios</a
+    >
   </div>
 </nav>

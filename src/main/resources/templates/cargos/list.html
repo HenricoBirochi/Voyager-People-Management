@@ -1,44 +1,73 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Voyager — Cargos</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
-</head>
-<body>
-<div th:replace="~{fragments/header.html :: navbar}"></div>
-<div class="centered-content-page">
-  <div class="main-box-page">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-      <h2>Cargos</h2>
-      <a class="btn btn-primary" th:href="@{/cargos/new}">Novo Cargo</a>
+  <head>
+    <title>Voyager — Cargos</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/shadcn-style.css}"
+      href="/css/shadcn-style.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+          "
+        >
+          <h2>Cargos</h2>
+          <a class="btn btn-primary" th:href="@{/cargos/new}">Novo Cargo</a>
+        </div>
+        <div style="overflow-x: auto">
+          <table
+            class="table"
+            style="min-width: 600px; width: 100%; margin: 0 auto"
+          >
+            <thead>
+              <tr>
+                <th style="text-align: left">Nome</th>
+                <th style="text-align: left">Salário</th>
+                <th style="width: 120px; text-align: center">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="c : ${cargos}">
+                <td th:text="${c.nome}"></td>
+                <td th:text="${c.salario}"></td>
+                <td style="text-align: center; vertical-align: middle">
+                  <div class="actions-inline">
+                    <a
+                      class="btn btn-secondary"
+                      th:href="@{'/cargos/edit/' + ${c.id}}"
+                      >Editar</a
+                    >
+                    <form
+                      th:action="@{'/cargos/delete/' + ${c.id}}"
+                      method="post"
+                      onsubmit="return confirm('Tem certeza que deseja excluir este registro?')"
+                      style="display: inline"
+                    >
+                      <button class="btn btn-danger" type="submit">
+                        Excluir
+                      </button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- botão de exclusão simples, sem modal -->
+      </div>
     </div>
-    <div style="overflow-x:auto;">
-      <table class="table" style="min-width:600px;width:100%;margin:0 auto;">
-        <thead>
-          <tr>
-            <th style="text-align:left;">Nome</th>
-            <th style="text-align:left;">Salário</th>
-            <th style="width:120px;text-align:center;">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="c : ${cargos}">
-            <td th:text="${c.nome}"></td>
-            <td th:text="${c.salario}"></td>
-            <td style="text-align:center;vertical-align:middle;">
-              <a class="btn btn-secondary" th:href="@{'/cargos/edit/' + ${c.id}}">Editar</a>
-              <a class="btn btn-danger" th:href="@{'/cargos/delete/' + ${c.id}}" onclick="return confirm('Tem certeza que deseja excluir este registro?')">Excluir</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- botão de exclusão simples, sem modal -->
-  </div>
-</div>
-<div th:replace="~{fragments/footer.html :: footer}"></div>
-</body>
-<!-- sem script de modal -->
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
+  <!-- sem script de modal -->
 </html>

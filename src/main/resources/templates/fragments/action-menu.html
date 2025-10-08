@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <!-- Usage: th:replace="fragments/action-menu :: menu(${entityBase}, ${id})" -->
+    <div th:fragment="menu(entityBase, id)">
+      <div class="action-menu" th:attr="data-base=${entityBase}, data-id=${id}">
+        <!-- hamburger icon -->
+        <button
+          type="button"
+          class="action-menu-button"
+          th:attr="data-target=${'am-' + entityBase + '-' + id}"
+        >
+          <span aria-hidden="true">☰</span>
+        </button>
+        <div
+          class="action-menu-list"
+          th:id="${'am-' + entityBase + '-' + id}"
+          style="display: none"
+        >
+          <a th:href="@{${'/' + entityBase + '/edit/' + id}}">Editar</a>
+          <!-- Some entities don't implement a /view route; link to edit to avoid 404s -->
+          <a th:href="@{${'/' + entityBase + '/edit/' + id}}">Visualizar</a>
+          <form
+            th:action="@{${'/' + entityBase + '/delete/' + id}}"
+            method="post"
+            onsubmit="return confirm('Tem certeza que deseja excluir este registro?')"
+          >
+            <button type="submit" class="action-menu-delete">Excluir</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usage: th:replace="fragments/action-menu :: actionMenu(${items})" where items is a map with key 'list' pointing to an array of actions -->
+    <div th:fragment="actionMenu(items)">
+      <div class="action-menu">
+        <button type="button" class="action-menu-button">
+          <span aria-hidden="true">☰</span>
+        </button>
+        <div class="action-menu-list" style="display: none">
+          <div th:each="it : ${items.list}">
+            <a
+              th:if="${it.url != null}"
+              th:href="${it.url}"
+              th:text="${it.label}"
+            ></a>
+            <form
+              th:if="${it.formAction != null}"
+              th:action="${it.formAction}"
+              th:method="${it.method != null ? it.method : 'post'}"
+              onsubmit="return it.confirm == false ? true : confirm('Tem certeza?')"
+            >
+              <button type="submit" th:text="${it.label}"></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

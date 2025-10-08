@@ -1,75 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<title>Voyager — Home</title>
-	<style> .card-summary {min-height:120px;} </style>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
-</head>
-<body>
-<div th:replace="~{fragments/header.html :: navbar}"></div>
-
-
-<div class="centered-content">
-	<div class="main-box">
-		<div class="jumbotron">
-			<h1 class="display-6">Voyager</h1>
-			<p class="small">Veja as listagem de cargos, departamentos e funcionários da empresa</p>
-			<p class="btn-group-home">
-				<a class="btn btn-primary" th:href="@{/cargos}">Cargos</a>
-				<a class="btn btn-primary" th:href="@{/departamentos}">Departamentos</a>
-				<a class="btn btn-primary" th:href="@{/funcionarios}">Funcionários</a>
-				<a class="btn btn-primary" th:href="@{/projetos}">Projetos</a>
-			</p>
-		</div>
-		<div class="row row-cards">
-			<div class="col-md-3">
-				<div class="card card-summary text-center">
-					<div class="card-body">
-						<h5 class="card-title">Cargos</h5>
-						<p class="card-text">Crie funções com respectivos salários.</p>
-						<p class="h3" th:text="${cargosCount}"></p>
-						<a th:href="@{/cargos}" class="btn btn-primary">Gerenciar</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="card card-summary text-center">
-					<div class="card-body">
-						<h5 class="card-title">Departamentos</h5>
-						<p class="card-text">Gerencie setores da empresa.</p>
-						<p class="h3" th:text="${departamentosCount}"></p>
-						<a th:href="@{/departamentos}" class="btn btn-primary">Gerenciar</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="card card-summary text-center">
-					<div class="card-body">
-						<h5 class="card-title">Funcionários</h5>
-						<p class="card-text">Cadastre e acompanhe colaboradores.</p>
-						<p class="h3" th:text="${funcionariosCount}"></p>
-						<a th:href="@{/funcionarios}" class="btn btn-primary">Gerenciar</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="card card-summary text-center">
-					<div class="card-body">
-						<h5 class="card-title">Projetos</h5>
-						<p class="card-text">Gerencie projetos e equipes.</p>
-						<!-- Se quiser exibir a contagem, adicione um atributo projetosCount no controller -->
-						<a th:href="@{/projetos}" class="btn btn-primary">Gerenciar</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div th:replace="~{fragments/footer.html :: footer}"></div>
-
-</body>
+  <head>
+    <title>Voyager — Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/shadcn-style.css}"
+      href="/css/shadcn-style.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <div>
+            <h1>Voyager</h1>
+            <p class="badge">Painel de administração</p>
+          </div>
+          <div>
+            <a class="btn btn-primary" th:href="@{/funcionarios}"
+              >Funcionários</a
+            >
+            <a class="btn" th:href="@{/departamentos}">Departamentos</a>
+          </div>
+        </div>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+          "
+        >
+          <div class="main-box-page" style="padding: 1rem">
+            <h4>Cargos</h4>
+            <p class="badge">Crie funções com respectivos salários.</p>
+            <div style="margin-top: 0.5rem">
+              <a th:href="@{/cargos}" class="btn btn-primary">Gerenciar</a>
+            </div>
+          </div>
+          <div class="main-box-page" style="padding: 1rem">
+            <h4>Departamentos</h4>
+            <p class="badge">Gerencie setores da empresa.</p>
+            <div style="margin-top: 0.5rem">
+              <a th:href="@{/departamentos}" class="btn btn-primary"
+                >Gerenciar</a
+              >
+            </div>
+          </div>
+          <div class="main-box-page" style="padding: 1rem">
+            <h4>Funcionários</h4>
+            <p class="badge">Cadastre e acompanhe colaboradores.</p>
+            <div style="margin-top: 0.5rem">
+              <a th:href="@{/funcionarios}" class="btn btn-primary"
+                >Gerenciar</a
+              >
+            </div>
+          </div>
+          <div class="main-box-page" style="padding: 1rem">
+            <h4>Projetos</h4>
+            <p class="badge">Gerencie projetos e equipes.</p>
+            <div style="margin-top: 0.5rem">
+              <a th:href="@{/projetos}" class="btn btn-primary">Gerenciar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
 </html>
-

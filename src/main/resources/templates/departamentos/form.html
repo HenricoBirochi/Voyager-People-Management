@@ -1,32 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Voyager — Departamento</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
-</head>
-<body>
-<div th:replace="~{fragments/header.html :: navbar}"></div>
-<div class="centered-content-page">
-  <div class="main-box-page">
-    <h2 th:text="${departamento.id != null} ? 'Editar Departamento' : 'Novo Departamento'"></h2>
-    <form th:action="@{/departamentos/save}" th:object="${departamento}" method="post">
-      <input type="hidden" th:if="${departamento.id != null}" th:field="*{id}" />
-      <div style="margin-bottom:1rem">
-        <label>Nome</label>
-  <input type="text" th:field="*{nome}" class="form-input" required maxlength="50" />
+  <head>
+    <title>Voyager — Departamento</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/shadcn-style.css}"
+      href="/css/shadcn-style.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <h2
+          th:text="${departamento.id != null} ? 'Editar Departamento' : 'Novo Departamento'"
+        ></h2>
+        <form
+          th:action="@{/departamentos/save}"
+          th:object="${departamento}"
+          method="post"
+        >
+          <input
+            type="hidden"
+            th:if="${departamento.id != null}"
+            th:field="*{id}"
+          />
+          <div style="margin-bottom: 1rem">
+            <label>Nome</label>
+            <input
+              type="text"
+              th:field="*{nome}"
+              class="form-input"
+              required
+              maxlength="50"
+            />
+          </div>
+          <button class="btn btn-primary">Salvar</button>
+          <a class="btn" th:href="@{/departamentos}">Cancelar</a>
+          <div th:if="${#fields.hasErrors()}" class="form-errors">
+            <ul>
+              <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
+          </div>
+        </form>
       </div>
-  <button class="btn btn-primary">Salvar</button>
-  <a class="btn" th:href="@{/departamentos}">Cancelar</a>
-      <div th:if="${#fields.hasErrors()}" class="form-errors">
-        <ul>
-          <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-        </ul>
-      </div>
-    </form>
-  </div>
-</div>
-  <div th:replace="~{fragments/footer.html :: footer}"></div>
-</body>
+    </div>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
 </html>

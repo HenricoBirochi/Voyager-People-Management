@@ -1,8 +1,9 @@
 <div th:fragment="footer">
-  <footer class="mt-4">
-    <div class="container text-center text-muted">
+  <footer class="footer">
+    <div>
       <small>&copy; Voyager</small>
     </div>
   </footer>
-</div>
+  <!-- Ensure action-menu script is available on pages that include only navbar/footer -->
+  <script th:src="@{/js/action-menu.js}" src="/js/action-menu.js"></script>
 </div>

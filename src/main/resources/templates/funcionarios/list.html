@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
-      th:href="@{/css/styles.css}"
-      href="/css/styles.css"
+      th:href="@{/css/shadcn-style.css}"
+      href="/css/shadcn-style.css"
     />
   </head>
   <body>
@@ -41,7 +41,7 @@
                 <th style="text-align: left">Cargo</th>
                 <th style="text-align: left">Departamento</th>
                 <th style="text-align: left">Projetos</th>
-                <th style="width: 120px; text-align: center">Ações</th>
+                <th style="width: 160px; text-align: center">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -65,47 +65,52 @@
                     th:text="${p.nome + (iter.last ? '' : ', ')}"
                   ></span>
                 </td>
-                <td style="text-align: center; vertical-align: middle">
-                  <form
-                    th:action="@{'/funcionarios/' + ${f.id} + '/bater-ponto'}"
-                    method="post"
-                    style="display: inline"
+                <td class="actions-cell">
+                  <div
+                    class="action-menu"
+                    th:attr="id=${'am-funcionarios-' + f.id}"
                   >
-                    <button class="btn btn-primary" type="submit">
-                      Bater Ponto
+                    <button
+                      type="button"
+                      class="action-menu-button"
+                      th:attr="data-target=${'am-funcionarios-' + f.id}"
+                      aria-expanded="false"
+                    >
+                      Ações ▾
                     </button>
-                  </form>
-                  <a
-                    class="btn btn-secondary"
-                    th:href="@{'/funcionarios/' + ${f.id} + '/atividade/new'}"
-                    >Nova Atividade</a
-                  >
-                  <a
-                    class="btn"
-                    th:href="@{'/funcionarios/' + ${f.id} + '/pontos'}"
-                    >Ver Pontos</a
-                  >
-                  <a
-                    class="btn"
-                    th:href="@{'/funcionarios/' + ${f.id} + '/atividades'}"
-                    >Ver Atividades</a
-                  >
-                  <a
-                    class="btn"
-                    th:href="@{'/funcionarios/' + ${f.id} + '/historico-cargos'}"
-                    >Histórico</a
-                  >
-                  <a
-                    class="btn btn-secondary"
-                    th:href="@{'/funcionarios/edit/' + ${f.id}}"
-                    >Editar</a
-                  >
-                  <a
-                    class="btn btn-danger"
-                    th:href="@{'/funcionarios/delete/' + ${f.id}}"
-                    onclick="return confirm('Tem certeza que deseja excluir este registro?')"
-                    >Excluir</a
-                  >
+                    <div class="action-menu-list">
+                      <form
+                        th:action="@{'/funcionarios/' + ${f.id} + '/bater-ponto'}"
+                        method="post"
+                        style="margin: 0"
+                      >
+                        <button type="submit">Bater Ponto</button>
+                      </form>
+                      <a
+                        th:href="@{'/funcionarios/' + ${f.id} + '/atividade/new'}"
+                        >Nova Atividade</a
+                      >
+                      <a th:href="@{'/funcionarios/' + ${f.id} + '/pontos'}"
+                        >Ver Pontos</a
+                      >
+                      <a th:href="@{'/funcionarios/' + ${f.id} + '/atividades'}"
+                        >Ver Atividades</a
+                      >
+                      <a
+                        th:href="@{'/funcionarios/' + ${f.id} + '/historico-cargos'}"
+                        >Histórico</a
+                      >
+                      <a th:href="@{'/funcionarios/edit/' + ${f.id}}">Editar</a>
+                      <form
+                        th:action="@{'/funcionarios/delete/' + ${f.id}}"
+                        method="post"
+                        data-confirm="Tem certeza que deseja excluir este registro?"
+                        style="margin: 0"
+                      >
+                        <button type="submit">Excluir</button>
+                      </form>
+                    </div>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -114,6 +119,7 @@
         <!-- botão de exclusão simples, sem modal -->
       </div>
     </div>
+
     <div th:replace="~{fragments/footer.html :: footer}"></div>
   </body>
   <!-- sem script de modal -->

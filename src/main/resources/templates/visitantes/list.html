@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <title>Visitantes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
-      th:href="@{/css/styles.css}"
-      href="/css/styles.css"
+      th:href="@{/css/shadcn-style.css}"
+      href="/css/shadcn-style.css"
     />
   </head>
   <body>
@@ -50,19 +51,18 @@
                 th:text="${v.funcionarioVisitado != null ? v.funcionarioVisitado.nome : (v.departamentoVisitado != null ? v.departamentoVisitado.nome : '')}"
               ></td>
               <td th:text="${v.crachaCodigo}"></td>
-              <td>
-                <a class="btn" th:href="@{'/visitantes/cracha/' + ${v.id}}"
-                  >Cracha</a
-                >
-                <form
-                  th:action="@{'/visitantes/' + ${v.id} + '/saida'}"
-                  method="post"
-                  style="display: inline"
-                >
-                  <button class="btn btn-secondary" type="submit">
-                    Registrar Saída
+              <td class="actions-cell">
+                <div class="action-menu">
+                  <button type="button" class="action-menu-button">
+                    <span aria-hidden="true">☰</span>
                   </button>
-                </form>
+                  <div class="action-menu-list" style="display: none">
+                    <a th:href="@{/visitantes/cracha/{id}(id=${v.id})}">Crachá</a>
+                    <form th:action="@{/visitantes/{id}/saida(id=${v.id})}" method="post" onsubmit="return confirm('Tem certeza?')">
+                      <button type="submit">Registrar Saída</button>
+                    </form>
+                  </div>
+                </div>
               </td>
             </tr>
           </tbody>

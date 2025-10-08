@@ -51,6 +51,13 @@ public class ProjetoController {
         return "projetos/form";
     }
 
+    @GetMapping("/projetos/view/{id}")
+    public String view(@PathVariable Long id) {
+        // Some templates/linkers used a /view/{id} URL but we don't have a separate view page.
+        // Redirect to the edit page to avoid 404s.
+        return "redirect:/projetos/edit/" + id;
+    }
+
     @PostMapping("/projetos/save")
     public String save(@Valid @ModelAttribute Projeto projeto, BindingResult br, Long departamentoId, Long[] funcionarioIds, Model model) {
         // Validação de unicidade do nome

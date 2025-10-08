@@ -1,0 +1,239 @@
+/* Minimal shadcn-inspired utility CSS for the app (not a full port) */
+:root {
+  --bg: #0f172a;
+  --card: #0b1220;
+  --muted: #94a3b8;
+  --accent: #7c3aed;
+  --accent-2: #06b6d4;
+  --surface: #071024;
+  --text: #e6eef8;
+  --success: #10b981;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, #071224 0%, #071028 60%);
+  color: var(--text);
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 12, 20, 0.6),
+    rgba(10, 14, 26, 0.35)
+  );
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+.brand {
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 1.15rem;
+}
+.nav .nav-link {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+.nav .nav-link:hover {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text);
+}
+.centered-content-page {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+.main-box-page {
+  width: 100%;
+  max-width: 1100px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 30px rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+.h2 {
+  font-size: 1.25rem;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+.table th,
+.table td {
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.03);
+  font-size: 0.95rem;
+}
+.btn {
+  display: inline-block;
+  padding: 0.45rem 0.7rem;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent), #5b21b6);
+  border: 0;
+  color: white;
+}
+.btn-secondary {
+  background: linear-gradient(90deg, #334155, #1f2937);
+  border: 0;
+  color: white;
+}
+.form-group {
+  margin-bottom: 0.75rem;
+}
+.form-control {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text);
+}
+.cracha {
+  padding: 1rem;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #071b2e, #04202d);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.footer {
+  padding: 1rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+}
+
+/* Enhanced form control focus/placeholder */
+.form-control:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
+  border-color: var(--accent);
+}
+.form-control::placeholder {
+  color: rgba(230, 238, 248, 0.45);
+}
+
+/* Actions column and dropdown menu */
+.actions-cell {
+  width: 180px;
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.action-menu {
+  position: relative;
+  display: inline-block;
+}
+.action-menu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  cursor: pointer;
+}
+.action-menu-list {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  min-width: 180px;
+  /* Use a mostly opaque background so the menu is solid (not transparent) */
+  background: rgba(10, 12, 20, 0.96);
+  border-radius: 8px;
+  padding: 0.5rem;
+  box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  z-index: 30;
+  display: none;
+}
+.action-menu-list a,
+.action-menu-list form button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  border-radius: 6px;
+  color: var(--text);
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+}
+
+/* Specific style for destructive/delete action inside action menu */
+.action-menu-delete {
+  background: #8a0032;
+  color: #ffffff;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 0;
+}
+.action-menu-delete:hover {
+  filter: brightness(0.92);
+}
+.action-menu-list a:hover,
+.action-menu-list form button:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+.action-menu.open .action-menu-list {
+  display: block;
+}
+
+/* compact inline actions for two-button rows */
+.actions-inline {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+@media (max-width: 800px) {
+  .navbar {
+    flex-wrap: wrap;
+  }
+  .main-box-page {
+    padding: 1rem;
+  }
+}

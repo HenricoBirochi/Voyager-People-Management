@@ -1,48 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <title>Projetos</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
-</head>
-<body>
-<div th:replace="~{fragments/header.html :: navbar}"></div>
-<div class="centered-content-page">
-    <div class="main-box-page">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-            <h2>Projetos</h2>
-            <a class="btn btn-primary" th:href="@{/projetos/new}">Novo Projeto</a>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/shadcn-style.css}"
+      href="/css/shadcn-style.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+          "
+        >
+          <h2>Projetos</h2>
+          <a class="btn btn-primary" th:href="@{/projetos/new}">Novo Projeto</a>
         </div>
-        <div style="overflow-x:auto;">
-            <table class="table" style="min-width:600px;width:100%;margin:0 auto;">
-                <thead>
-                    <tr>
-                        <th style="text-align:left;">Nome</th>
-                        <th style="text-align:left;">Descrição</th>
-                        <th style="text-align:left;">Departamento</th>
-                        <th style="text-align:left;">Funcionários</th>
-                        <th style="width:120px;text-align:center;">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="p : ${projetos}">
-                        <td th:text="${p.nome}"></td>
-                        <td th:text="${p.descricao}"></td>
-                        <td th:text="${p.departamento != null ? p.departamento.nome : ''}"></td>
-                        <td>
-                            <span th:each="f, iter : ${p.funcionarios}" th:text="${f.nome + (iter.last ? '' : ', ')}"></span>
-                        </td>
-                        <td style="text-align:center;vertical-align:middle;">
-                            <a class="btn btn-secondary" th:href="@{'/projetos/edit/' + ${p.id}}">Editar</a>
-                            <a class="btn btn-danger" th:href="@{'/projetos/delete/' + ${p.id}}" onclick="return confirm('Tem certeza que deseja excluir este projeto?')">Excluir</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div style="overflow-x: auto">
+          <table
+            class="table"
+            style="min-width: 600px; width: 100%; margin: 0 auto"
+          >
+            <thead>
+              <tr>
+                <th style="text-align: left">Nome</th>
+                <th style="text-align: left">Descrição</th>
+                <th style="text-align: left">Departamento</th>
+                <th style="text-align: left">Funcionários</th>
+                <th style="width: 120px; text-align: center">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="p : ${projetos}">
+                <td th:text="${p.nome}"></td>
+                <td th:text="${p.descricao}"></td>
+                <td
+                  th:text="${p.departamento != null ? p.departamento.nome : ''}"
+                ></td>
+                <td>
+                  <span
+                    th:each="f, iter : ${p.funcionarios}"
+                    th:text="${f.nome + (iter.last ? '' : ', ')}"
+                  ></span>
+                </td>
+                <td class="actions-cell">
+                  <div
+                    th:replace="~{fragments/action-menu :: menu('projetos', ${p.id})}"
+                  ></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
-</div>
-<div th:replace="~{fragments/footer.html :: footer}"></div>
-</body>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
 </html>

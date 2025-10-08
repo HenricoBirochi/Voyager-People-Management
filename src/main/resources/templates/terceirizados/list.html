@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <title>Terceirizados</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
-      th:href="@{/css/styles.css}"
-      href="/css/styles.css"
+      th:href="@{/css/shadcn-style.css}"
+      href="/css/shadcn-style.css"
     />
   </head>
   <body>
@@ -46,22 +47,18 @@
               <td
                 th:text="${t.dataInicio} + ' - ' + (t.dataFim != null ? t.dataFim : '')"
               ></td>
-              <td>
-                <a
-                  class="btn"
-                  th:href="@{'/terceirizados/' + ${t.id} + '/pontos'}"
-                  >Pontos</a
-                >
-                <form
-                  th:action="@{'/terceirizados/' + ${t.id} + '/renovar'}"
-                  method="post"
-                  style="display: inline"
-                >
-                  <input type="text" name="novoFim" placeholder="YYYY-MM-DD" />
-                  <button class="btn btn-secondary" type="submit">
-                    Renovar
+              <td class="actions-cell">
+                <div class="action-menu">
+                  <button type="button" class="action-menu-button">
+                    <span aria-hidden="true">☰</span>
                   </button>
-                </form>
+                  <div class="action-menu-list" style="display: none">
+                    <a th:href="@{/terceirizados/{id}/pontos(id=${t.id})}">Pontos</a>
+                    <form th:action="@{/terceirizados/{id}/renovar(id=${t.id})}" method="post" onsubmit="return confirm('Tem certeza?')">
+                      <button type="submit">Renovar</button>
+                    </form>
+                  </div>
+                </div>
               </td>
             </tr>
           </tbody>

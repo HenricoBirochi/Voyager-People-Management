@@ -1,72 +1,148 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Voyager — Novo Funcionário</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
-</head>
-<body>
-<div th:replace="~{fragments/header.html :: navbar}"></div>
-<div class="centered-content-page">
-  <div class="main-box-page">
-    <h2 th:text="${funcionario.id != null} ? 'Editar Funcionário' : 'Novo Funcionário'"></h2>
-    <form th:action="@{/funcionarios/save}" th:object="${funcionario}" method="post">
-      <input type="hidden" th:if="${funcionario.id != null}" th:field="*{id}" />
-      <div th:if="${errorMessage}" class="form-error" style="color:#b00;margin-bottom:1rem;">[[${errorMessage}]]</div>
-      <div style="margin-bottom:1rem">
-        <label>Nome</label>
-        <input type="text" th:field="*{nome}" class="form-input" required maxlength="60" />
+  <head>
+    <title>Voyager — Novo Funcionário</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/shadcn-style.css}"
+      href="/css/shadcn-style.css"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html :: navbar}"></div>
+    <div class="centered-content-page">
+      <div class="main-box-page">
+        <h2
+          th:text="${funcionario != null and funcionario.id != null} ? 'Editar Funcionário' : 'Novo Funcionário'"
+        ></h2>
+        <form
+          th:action="@{/funcionarios/save}"
+          th:object="${funcionario}"
+          method="post"
+        >
+          <input
+            type="hidden"
+            th:if="${funcionario != null and funcionario.id != null}"
+            th:field="*{id}"
+          />
+          <div
+            th:if="${errorMessage}"
+            class="form-error"
+            style="color: #b00; margin-bottom: 1rem"
+          >
+            [[${errorMessage}]]
+          </div>
+
+          <div class="form-group">
+            <label>Nome</label>
+            <input
+              type="text"
+              th:field="*{nome}"
+              class="form-control"
+              required
+              maxlength="60"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>CPF</label>
+            <input
+              type="text"
+              th:field="*{cpf}"
+              class="form-control"
+              required
+              maxlength="14"
+              pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+              placeholder="000.000.000-00"
+              oninput="mascaraCPF(this)"
+            />
+          </div>
+
+          <script>
+            function mascaraCPF(input) {
+              let v = input.value.replace(/\D/g, "");
+              v = v.replace(/(\d{3})(\d)/, "$1.$2");
+              v = v.replace(/(\d{3})(\d)/, "$1.$2");
+              v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+              input.value = v;
+            }
+          </script>
+
+          <div class="form-group">
+            <label>Data de Nascimento</label>
+            <input
+              type="date"
+              th:field="*{dataDeNascimento}"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Data de Contratação</label>
+            <input
+              type="date"
+              th:field="*{dataDeContratacao}"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Cargo</label>
+            <select name="cargoId" class="form-control" required>
+              <option
+                th:each="c : ${cargos}"
+                th:value="${c.id}"
+                th:text="${c.nome}"
+                th:selected="${funcionario != null and funcionario.cargo != null and funcionario.cargo.id == c.id}"
+              ></option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Departamento</label>
+            <select name="departamentoId" class="form-control" required>
+              <option
+                th:each="d : ${departamentos}"
+                th:value="${d.id}"
+                th:text="${d.nome}"
+                th:selected="${funcionario != null and funcionario.departamento != null and funcionario.departamento.id == d.id}"
+              ></option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Projetos</label>
+            <select
+              th:field="*{projetos}"
+              class="form-control"
+              multiple
+              size="5"
+            >
+              <option
+                th:each="p : ${projetos}"
+                th:value="${p.id}"
+                th:text="${p.nome}"
+              ></option>
+            </select>
+          </div>
+
+          <div style="margin-top: 1rem">
+            <button class="btn btn-primary">Salvar</button>
+            <a class="btn" th:href="@{/funcionarios}">Cancelar</a>
+          </div>
+
+          <div th:if="${#fields.hasErrors()}" class="form-errors">
+            <ul>
+              <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
+          </div>
+        </form>
       </div>
-      <div style="margin-bottom:1rem">
-        <label>CPF</label>
-        <input type="text" th:field="*{cpf}" class="form-input" required maxlength="14" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="000.000.000-00" oninput="mascaraCPF(this)" />
-      </div>
-<script>
-function mascaraCPF(input) {
-  let v = input.value.replace(/\D/g,"");
-  v = v.replace(/(\d{3})(\d)/, "$1.$2");
-  v = v.replace(/(\d{3})(\d)/, "$1.$2");
-  v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-  input.value = v;
-}
-</script>
-      <div style="margin-bottom:1rem">
-        <label>Data de Nascimento</label>
-        <input type="date" th:field="*{dataDeNascimento}" class="form-input" required />
-      </div>
-      <div style="margin-bottom:1rem">
-        <label>Data de Contratação</label>
-        <input type="date" th:field="*{dataDeContratacao}" class="form-input" required />
-      </div>
-      <div style="margin-bottom:1rem">
-        <label>Cargo</label>
-        <select name="cargoId" class="form-input" required>
-          <option th:each="c : ${cargos}" th:value="${c.id}" th:text="${c.nome}" th:selected="${funcionario.cargo != null and funcionario.cargo.id == c.id}"></option>
-        </select>
-      </div>
-      <div style="margin-bottom:1rem">
-        <label>Departamento</label>
-        <select name="departamentoId" class="form-input" required>
-          <option th:each="d : ${departamentos}" th:value="${d.id}" th:text="${d.nome}" th:selected="${funcionario.departamento != null and funcionario.departamento.id == d.id}"></option>
-        </select>
-      </div>
-      <div style="margin-bottom:1rem">
-        <label>Projetos</label>
-        <select th:field="*{projetos}" class="form-input" multiple size="5">
-          <option th:each="p : ${projetos}" th:value="${p.id}" th:text="${p.nome}" th:selected="${#lists.contains(funcionario.projetos, p)}"></option>
-        </select>
-      </div>
-      <button class="btn btn-primary">Salvar</button>
-      <a class="btn" th:href="@{/funcionarios}">Cancelar</a>
-      <div th:if="${#fields.hasErrors()}" class="form-errors">
-        <ul>
-          <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-        </ul>
-      </div>
-    </form>
-  </div>
-</div>
-  <div th:replace="~{fragments/footer.html :: footer}"></div>
-</body>
+    </div>
+    <div th:replace="~{fragments/footer.html :: footer}"></div>
+  </body>
 </html>
