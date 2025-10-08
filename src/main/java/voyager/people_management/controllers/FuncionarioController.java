@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
 import java.util.List;
 import voyager.people_management.services.PontoService;
 import voyager.people_management.services.AtividadeService;
-import voyager.people_management.models.Funcionario;
-import voyager.people_management.models.Ponto;
-import voyager.people_management.models.Atividade;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
