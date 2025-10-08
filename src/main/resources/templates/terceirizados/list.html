@@ -57,6 +57,16 @@
                       >Pontos</a
                     >
                     <form
+                      th:action="@{/terceirizados/{id}/bater-ponto(id=${t.id})}"
+                      method="post"
+                      style="margin: 0"
+                    >
+                      <input type="hidden" name="tipo" value="ENTRADA" />
+                      <button type="submit" class="btn btn-secondary">
+                        Bater Ponto
+                      </button>
+                    </form>
+                    <form
                       th:action="@{/terceirizados/{id}/renovar(id=${t.id})}"
                       method="post"
                       onsubmit="return confirm('Tem certeza?')"

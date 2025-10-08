@@ -12,6 +12,8 @@ import voyager.people_management.services.TerceirizadoPontoService;
 import voyager.people_management.services.DepartamentoService;
 import voyager.people_management.services.FuncionarioService;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import voyager.people_management.models.TerceirizadoPonto;
 
 @Controller
 public class TerceirizadoController {
@@ -54,6 +56,19 @@ public class TerceirizadoController {
 		model.addAttribute("terceirizado", opt.get());
 		model.addAttribute("pontos", pontoService.findAll().stream().filter(p -> p.getTerceirizado() != null && p.getTerceirizado().getId().equals(id)).toList());
 		return "terceirizados/pontos_list";
+	}
+
+	@PostMapping("/terceirizados/{id}/bater-ponto")
+	public String baterPonto(@PathVariable Long id, String tipo) {
+		var opt = terceirizadoService.findById(id);
+		if (opt.isEmpty()) return "redirect:/terceirizados";
+		var t = opt.get();
+		TerceirizadoPonto p = new TerceirizadoPonto();
+		p.setTerceirizado(t);
+		p.setHorario(LocalDateTime.now());
+		p.setTipo((tipo == null || tipo.isBlank()) ? "ENTRADA" : tipo);
+		pontoService.save(p);
+		return "redirect:/terceirizados";
 	}
 
 	@PostMapping("/terceirizados/{id}/renovar")
