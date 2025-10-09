@@ -1,25 +1,21 @@
-# Voyager People Management
+# 👽 Voyager People Management
 
 Uma aplicação simples em Spring Boot para gerenciar cargos, departamentos, funcionários, pontos e relatórios.
 
-## Sobre
-
-Projeto desenvolvido para a disciplina "Linguagens de Programação II".
-
-## Autores / Créditos
+## 🔥 Autores / Créditos
 
 - Faculdade: Engenheiro Slavador Arena
 - Disciplina: Linguagens de Programação II
-- Edgar Camacho Seabra Ribeiro — RA: 081230039
-- Nicholas Birochi — RA: 081230038
+- Henrico Birochi — RA: 081230027
+- Vítor Agostino Braghittoni — RA: 081230024
 
-## Requisitos
+## 😅 Requisitos
 
-- Java 21 (conforme `pom.xml`)
-- Maven (use o wrapper incluído `./mvnw`)
-- Docker (opcional, recomendado para rodar PostgreSQL localmente)
+- ✔️ Java 21 (conforme `pom.xml`)
+- ✔️ Maven (use o wrapper incluído `./mvnw`)
+- ✔️ Docker (opcional, recomendado para rodar PostgreSQL localmente)
 
-## Como rodar (local)
+## 🐳 Como rodar (local com Docker)
 
 1. (Opcional) Inicie o PostgreSQL com Docker Compose. O arquivo `docker-compose.yml` já configura um banco `voyager` com usuário `voyager` / senha `voyager`:
 
@@ -35,11 +31,11 @@ docker-compose up -d
 
 Por padrão a aplicação tenta usar as seguintes variáveis de ambiente (se não estiverem definidas, ajuste o `application.properties` ou forneça variáveis):
 
-- JDBC_DATABASE_URL=jdbc:postgresql://localhost:5432/voyager
-- JDBC_DATABASE_USERNAME=voyager
-- JDBC_DATABASE_PASSWORD=voyager
+- ✔️ JDBC_DATABASE_URL=jdbc:postgresql://localhost:5432/voyager
+- ✔️ JDBC_DATABASE_USERNAME=voyager
+- ✔️ JDBC_DATABASE_PASSWORD=voyager
 
-## Rodando sem Docker
+### 😭 Rodando sem Docker
 
 Se preferir usar um PostgreSQL já existente, defina as variáveis de ambiente acima apontando para seu banco e em seguida rode:
 
@@ -47,12 +43,12 @@ Se preferir usar um PostgreSQL já existente, defina as variáveis de ambiente a
 ./mvnw spring-boot:run
 ```
 
-## Observações
+## 👀 Observações
 
 - Em desenvolvimento o projeto usa `spring.jpa.hibernate.ddl-auto=update` para facilitar a evolução do esquema. Em produção, prefira usar migrações (Flyway/Liquibase) e uma política de DDL mais segura.
 - As views Thymeleaf estão em `src/main/resources/templates` e os recursos estáticos em `src/main/resources/static`.
 
-## Diagrama (Mermaid)
+## 📈 Diagrama (Mermaid)
 
 Um diagrama simples que mostra os principais componentes e fluxo de dados. Você pode colar este bloco em https://mermaid.live para visualizar.
 
@@ -70,7 +66,7 @@ graph LR
   Backend --> BackendModules
 ```
 
-## Build e testes
+## 📌 Build e testes
 
 Para executar testes (usa H2 em testes) e gerar o JAR:
 
@@ -84,6 +80,10 @@ Para empacotar sem executar testes rápidos:
 ./mvnw -DskipTests package
 ```
 
-## Contato
+## 📃 Sobre
+
+Projeto desenvolvido para a disciplina "Linguagens de Programação II".
+
+## 👋 Contato
 
 Abra uma issue neste repositório para reportar bugs ou pedir melhorias. Os autores acima podem ser contatados pelos RAs listados.
